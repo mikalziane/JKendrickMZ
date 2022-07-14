@@ -27,7 +27,8 @@ public class Main {
 		}
 	}
 		
-	private static double[][] integratorExample(double step, double last, double[] args) {
+	private static double[][] integratorExample(double step, double last, 
+																double[] args) {
 		FirstOrderIntegrator integ;
 		integ = new ClassicalRungeKuttaIntegrator(0.1);
 		FirstOrderDifferentialEquations ode = new SIR_ODE(0.00042, .23);
@@ -37,7 +38,8 @@ public class Main {
 		double t = 0.0;
 		int i;
 		do {
-			System.out.format("Conditions at time %.1f:  S:%.0f  I:%.0f  R:%.0f%n",t, args[0],  args[1], args[2]);
+			System.out.format("Conditions at time %.1f:  S:%.0f  I:%.0f  R:%.0f%n",
+									t, args[0],  args[1], args[2]);
 			i = (int)(t/step);
 			for(int j = 0; j< nbArgs; ++j)
 				results[j][i]= args[j];
@@ -48,7 +50,8 @@ public class Main {
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private static void xchartExample(double[][] results, double step, double last) throws IOException {
+	private static void xchartExample(double[][] results, double step, double last) 
+															throws IOException {
 		//double[] xData = new double[] { 0.0, 1.0, 2.0 };
 		//double[] yData = new double[] { 2.0, 1.0, 0.0 };
 		double[] xData = new double[results[0].length];
@@ -58,7 +61,8 @@ public class Main {
 			yData[x]= results[0][x];
 		}
 		// Create Chart
-		XYChart chart = QuickChart.getChart("Sample Chart", "X", "Y", "y(x)", xData, yData);
+		XYChart chart = QuickChart.getChart("Sample Chart", "X", "Y", "y(x)",
+																	xData, yData);
 
 		// Show it
 		new SwingWrapper(chart).displayChart();
@@ -67,7 +71,8 @@ public class Main {
 		BitmapEncoder.saveBitmap(chart, "./Sample_Chart", BitmapFormat.PNG);
 
 		// or save it in high-res
-		BitmapEncoder.saveBitmapWithDPI(chart, "./Sample_Chart_300_DPI", BitmapFormat.PNG, 300);
+		BitmapEncoder.saveBitmapWithDPI(chart, "./Sample_Chart_300_DPI",
+															BitmapFormat.PNG, 300);
 	}
 	
 	
