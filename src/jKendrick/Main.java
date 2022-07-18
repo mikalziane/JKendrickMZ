@@ -52,8 +52,6 @@ public class Main {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private static void xchartExample(double[][] results, double step, double last) 
 															throws IOException {
-		//double[] xData = new double[] { 0.0, 1.0, 2.0 };
-		//double[] yData = new double[] { 2.0, 1.0, 0.0 };
 		double[] xData = new double[results[0].length];
 		double[] yData = new double[results[0].length];
 		for (int x = 0; x< (int) Math.ceil(last / step); ++x) {
