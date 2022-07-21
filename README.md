@@ -10,6 +10,10 @@ Maven is not required even though it might help a bit for XChart.
 
 Apache's implementation of RK4 is used: org.apache.commons.math3.ode.nonstiff.RungeKuttaIntegrator
 
+To add Appache commons to an Eclipse project: https://docs.blackberry.com/en/development-tools/blackberry-web-services-for-blackberry-uem/12_10/java-development-guide/bma1439578367525/bma1439578368853
+
+To use RungeKuttaIntegrator and other solvers from Apache Commons:
+
 See [https://commons.apache.org/proper/commons-math/userguide/ode.html](https://commons.apache.org/proper/commons-math/userguide/ode.html)
 
 "The user should describe his problem in his own classes which should implement the FirstOrderDifferentialEquations interface.
