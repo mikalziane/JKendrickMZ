@@ -8,7 +8,7 @@
 
 Apache's implementation of RK4 is used: org.apache.commons.math3.ode.nonstiff.RungeKuttaIntegrator
 
-To add Appache commons to an Eclipse project: 
+To add Apache commons to an Eclipse project: 
 >https://docs.blackberry.com/en/development-tools/blackberry-web-services-for-blackberry-uem/12_10/java-development-guide/bma1439578367525/bma1439578368853
 
 To use RungeKuttaIntegrator and other solvers from Apache Commons: 
