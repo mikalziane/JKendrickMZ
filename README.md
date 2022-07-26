@@ -37,6 +37,9 @@ Then, follow this step
 
 ## Examples
 
-### SIS
+### SIR
+
+The example is adapted from https://github.com/KendrickOrg/kendrick/wiki/Basic-SIR-(Benchmark-Model-1)
+
 
 
