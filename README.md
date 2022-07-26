@@ -1,6 +1,12 @@
 # JKendrick
 
 ## How to install
+###Importing
+Importing in Eclipse works well using 
+
+Import\Git\Project from git (using smart import)
+
+Obviously dependencies need to be installed and since this is not a Maven or Ant project it must be checked what Eclipse installs.
 
 ### Dependencies 
 
@@ -22,9 +28,4 @@ So for this simple SIR example it is 3 because the compartments are  S, I and R 
 https://github.com/knowm/XChart
 It is not mandatory to create a Maven project to use XChart
 
-###Importing
-Importing in Elipse works well using 
 
-Import\Git\Project from git (using smart import)
-
-It needs to access XChart
