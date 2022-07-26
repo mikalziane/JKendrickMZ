@@ -39,6 +39,16 @@ Then, follow this step
 
 ### SIR
 
+Attention avec l'incidence mass action ou standard. Cela revient au même si N est fixe mais il y a deux approches bien distinctes.
+
+a) dS/dt = - beta/N IS
+
+dans ce cas beta est fixe
+
+b) dS/dt = - beta IS 
+
+dans ce cas il faut absolumet penser à adpater beta si N change c'est à dire à le garder proportionnel à N
+
 The example is adapted from https://github.com/KendrickOrg/kendrick/wiki/Basic-SIR-(Benchmark-Model-1)
 
 Une version déterministe est là : https://github.com/KendrickOrg/kendrick/blob/ba11051d2c8976bb27a12da0e3e51650cee99e51/src/Kendrick-Examples/KEDeterministicExamples.class.st#L1183
