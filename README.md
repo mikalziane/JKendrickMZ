@@ -39,15 +39,15 @@ Then, follow this step
 
 ### SIR
 
-Attention avec l'incidence mass action ou standard. Cela revient au même si N est fixe mais il y a deux approches bien distinctes.
+Be careful with the incidence: mass action or  standard.
 
 a) dS/dt = - beta/N IS
 
-dans ce cas beta est fixe
+in this case beta does not change.
 
 b) dS/dt = - beta IS 
 
-dans ce cas il faut absolumet penser à adpater beta si N change c'est à dire à le garder proportionnel à N
+in this case beta must be kept proportional to N.
 
 The example is adapted from https://github.com/KendrickOrg/kendrick/wiki/Basic-SIR-(Benchmark-Model-1)
 
