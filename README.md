@@ -41,5 +41,8 @@ Then, follow this step
 
 The example is adapted from https://github.com/KendrickOrg/kendrick/wiki/Basic-SIR-(Benchmark-Model-1)
 
+Une version déterministe est là : https://github.com/KendrickOrg/kendrick/blob/ba11051d2c8976bb27a12da0e3e51650cee99e51/src/Kendrick-Examples/KEDeterministicExamples.class.st#L1183
+
+
 
 
