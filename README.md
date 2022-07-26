@@ -1,6 +1,12 @@
 # JKendrick
 
 ## How to install
+###Importing
+Importing in Eclipse works well using 
+
+Import\Git\Project from git (using smart import)
+
+Obviously dependencies need to be installed and since this is not a Maven or Ant project it must be checked what Eclipse installs.
 
 ### Dependencies 
 
@@ -52,7 +58,5 @@ in this case beta must be kept proportional to N.
 The example is adapted from https://github.com/KendrickOrg/kendrick/wiki/Basic-SIR-(Benchmark-Model-1)
 
 Une version déterministe est là : https://github.com/KendrickOrg/kendrick/blob/ba11051d2c8976bb27a12da0e3e51650cee99e51/src/Kendrick-Examples/KEDeterministicExamples.class.st#L1183
-
-
 
 

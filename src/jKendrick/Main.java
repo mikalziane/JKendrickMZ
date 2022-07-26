@@ -36,15 +36,15 @@ public class Main {
 		int duration = (int) Math.ceil(last / step);
 		double[][] results = new double[nbArgs][duration];
 		double t = 0.0;
-		int i;
+		int i = 0;
 		do {
-			System.out.format("Conditions at time %.1f:  S:%.0f  I:%.0f  R:%.0f%n",
+			System.out.format("Conditions at time %.1f:  S:%.1f  I:%.1f  R:%.1f%n",
 									t, args[0],  args[1], args[2]);
-			i = (int)(t/step);
 			for(int j = 0; j< nbArgs; ++j)
 				results[j][i]= args[j];
-			integ.integrate(ode, t, args, t + 0.1, args);
+			integ.integrate(ode, t, args, t + step, args);
 			t += step;
+			++i;
 		} while (t <last);	
 		return results;
 	}
@@ -54,12 +54,12 @@ public class Main {
 															throws IOException {
 		double[] xData = new double[results[0].length];
 		double[] yData = new double[results[0].length];
-		for (int x = 0; x< (int) Math.ceil(last / step); ++x) {
-			xData[x]= x;
-			yData[x]= results[0][x];
+		for (int i = 0; i< (int) Math.ceil(last / step); ++i) {
+			xData[i]= i * step;
+			yData[i]= results[0][i];
 		}
 		// Create Chart
-		XYChart chart = QuickChart.getChart("Sample Chart", "X", "Y", "y(x)",
+		XYChart chart = QuickChart.getChart("SIR", "t", "#individuals", "S",
 																	xData, yData);
 
 		// Show it
