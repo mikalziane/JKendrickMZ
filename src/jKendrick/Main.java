@@ -68,8 +68,6 @@ public class Main {
 		for (int i = 0; i< (int) Math.ceil(last / step); ++i) {
 			xData[i]= i * step;
 			yData[k][i] = results[k][i];
-		
-			
 			}
 		}
 				
