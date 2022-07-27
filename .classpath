@@ -6,13 +6,17 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/admin/Downloads/commons-math3-3.6.1-javadoc.jar"/>
-	<classpathentry kind="lib" path="/Users/admin/Downloads/commons-math3-3.6.1-sources.jar"/>
-	<classpathentry kind="lib" path="/Users/admin/Downloads/commons-math3-3.6.1-test-sources.jar"/>
-	<classpathentry kind="lib" path="/Users/admin/Downloads/commons-math3-3.6.1-tests.jar"/>
-	<classpathentry kind="lib" path="/Users/admin/Downloads/commons-math3-3.6.1-tools.jar"/>
-	<classpathentry kind="lib" path="/Users/admin/Downloads/commons-math3-3.6.1.jar"/>
-	<classpathentry kind="lib" path="/Users/admin/Downloads/xchart-3.8.1.jar"/>
-	<classpathentry kind="lib" path="/Users/admin/Downloads/xchart-demo-3.8.1.jar"/>
+	<classpathentry kind="lib" path="D:/Dropbox/pdf/jKendrick/commons-math3-3.6.1-bin/commons-math3-3.6.1/commons-math3-3.6.1-javadoc.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="D:/Dropbox/pdf/jKendrick/commons-math3-3.6.1-bin/commons-math3-3.6.1/commons-math3-3.6.1.jar"/>
+	<classpathentry kind="lib" path="D:/Dropbox/pdf/jKendrick/commons-math3-3.6.1-bin/commons-math3-3.6.1/commons-math3-3.6.1-sources.jar"/>
+	<classpathentry kind="lib" path="D:/Dropbox/pdf/jKendrick/commons-math3-3.6.1-bin/commons-math3-3.6.1/commons-math3-3.6.1-tests.jar"/>
+	<classpathentry kind="lib" path="D:/Dropbox/pdf/jKendrick/commons-math3-3.6.1-bin/commons-math3-3.6.1/commons-math3-3.6.1-test-sources.jar"/>
+	<classpathentry kind="lib" path="D:/Dropbox/pdf/jKendrick/commons-math3-3.6.1-bin/commons-math3-3.6.1/commons-math3-3.6.1-tools.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mikal/Downloads/xchart-3.8.1/xchart-3.8.1/xchart-3.8.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mikal/Downloads/xchart-3.8.1/xchart-3.8.1/xchart-demo-3.8.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
