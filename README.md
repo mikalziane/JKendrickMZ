@@ -1,8 +1,8 @@
 # JKendrick
 
 ## How to install
-###Importing
-Importing in Eclipse works well using 
+
+### Importing in Eclipse works well using 
 
 Import\Git\Project from git (using smart import)
 
