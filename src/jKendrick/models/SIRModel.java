@@ -1,4 +1,4 @@
-package ODEModels;
+package jKendrick.models;
 
 import org.apache.commons.math3.exception.DimensionMismatchException;
 

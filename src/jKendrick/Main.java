@@ -8,7 +8,8 @@ import java.io.IOException;
 import org.apache.commons.math3.ode.FirstOrderIntegrator;
 import org.apache.commons.math3.ode.nonstiff.ClassicalRungeKuttaIntegrator;
 
-import ODEModels.SIRModel;
+import jKendrick.models.SIRModel;
+import jKendrick.solvers.RK4Solver;
 
 
 public class Main {
@@ -30,8 +31,7 @@ public class Main {
 
 	private static double[][] integratorExample(double step, double last,
 			double[] args) {
-		FirstOrderIntegrator integ;
-		integ = new ClassicalRungeKuttaIntegrator(step);
+		RK4Solver rk4 = new RK4Solver(step);
 		SIRModel ode = new SIRModel(1.4247, 0.14286);
 		//SIRModelWithDemography ode = new SIRModelWithDemography (1.4247, 0.14286, 0.0000391);
 		//SISModel ode = new SISModel(1.4247, 0.14286);
@@ -47,7 +47,7 @@ public class Main {
 			i = (int)(t/step);
 			for(int j = 0; j< nbArgs; ++j)
 				results[j][i]= args[j];
-			integ.integrate(ode, t, args, t + step, args);
+			rk4.integrate(ode, t, args, t + step, args);
 			t += step;
 			++i;
 		} while (t <last);	
