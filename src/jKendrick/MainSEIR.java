@@ -15,7 +15,7 @@ import jKendrick.solvers.RK4Solver;
 public class MainSEIR {
 	public static void main(String[] args) {
 		double step = 1;
-		double last = 200.;
+		double last = 21900.;
 		
 		double[] arguments ={ 0.1, 0.0001, 0.0001, 0};
 		double [][] results = 	integratorExample(step, last, arguments);
