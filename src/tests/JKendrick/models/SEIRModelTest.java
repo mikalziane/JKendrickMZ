@@ -20,6 +20,14 @@ public class SEIRModelTest {
 	double gamma = 0.14286; // recovery rate
 	double mu = 0.0000391; // Birth_and_death_rate
 	double sigma = 0.07143; // Exposed_to_Infectious_rate
+	
+/*	@Test
+	void testPropotionOfPopulation() {
+		
+		SEIRModel ode = new SEIRModel(beta, gamma, mu, sigma);
+		assertEquals(1, ode.);
+	}*/
+	
 
 	@Test
 	void testDimension() {
@@ -37,7 +45,7 @@ public class SEIRModelTest {
 		ode.computeDerivatives(0, arguments, seirDot);
 		
 		assertEquals(mu - ((beta * i0 + mu) * s0), seirDot[0]);
-		assertEquals((beta * e0 * s0) - ((mu + sigma) * e0), seirDot[1]);
+		assertEquals((beta * i0 * s0) - ((mu + sigma) * e0), seirDot[1]);
 		assertEquals((sigma * e0) - ((mu + gamma) * i0), seirDot[2]);
 		assertEquals((gamma * i0) - (mu * r0), seirDot[3]);
 	}
