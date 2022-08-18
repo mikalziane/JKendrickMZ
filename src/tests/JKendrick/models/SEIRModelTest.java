@@ -14,7 +14,7 @@ public class SEIRModelTest {
 	double s0 = 0.1; // initial proportion of Ss
 	double e0 = 0.0001; // initial proportion of Es
 	double i0 = 0.0001; // initial proportion of Is
-	double r0 = 0; // initial proportion of Rs
+	double r0 = 0.898; // initial proportion of Rs
 	double[] arguments ={ s0, e0, i0, r0};
 	double beta = 1.4247; // transmission rate
 	double gamma = 0.14286; // recovery rate
