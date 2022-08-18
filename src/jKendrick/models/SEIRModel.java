@@ -29,7 +29,7 @@ public class SEIRModel implements FirstOrderDifferentialEquations {
 		
 			
 			seirDot[0] = mu - ((beta * seir[2] + mu) * seir[0]);
-			seirDot[1] = (beta * seir[1] * seir[0]) - ((mu + sigma) * seir[1]);
+			seirDot[1] = (beta * seir[2] * seir[0]) - ((mu + sigma) * seir[1]);
 			seirDot[2] = (sigma * seir[1]) - ((mu + gamma) * seir[2]);
 			seirDot[3] = (gamma * seir[2]) - (mu * seir[3]);
 			
