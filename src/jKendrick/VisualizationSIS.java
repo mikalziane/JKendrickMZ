@@ -33,7 +33,7 @@ public class VisualizationSIS {
 		}
 				
 	// Create Chart
-	final XYChart chart = new XYChartBuilder().width(600).height(400).theme(ChartTheme.XChart).title("SIS Model").xAxisTitle("Time (year)").yAxisTitle("Number of individuals").build();
+	final XYChart chart = new XYChartBuilder().width(600).height(400).theme(ChartTheme.XChart).title("SIS Model").xAxisTitle("Time (day)").yAxisTitle("Proportion of individuals").build();
 
 	// Customize Chart
 		chart.getStyler().setLegendPosition(LegendPosition.InsideNE);
