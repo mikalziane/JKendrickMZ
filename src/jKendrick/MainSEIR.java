@@ -23,13 +23,9 @@ public class MainSEIR {
 		double r0 = 0.898; // initial proportion of Rs
 		double[] arguments ={ s0, e0, i0, r0};
 		
-		if (s0 + i0 + e0 + r0 == 1) {
-            System.out.println( "La somme de proportion de la population vaut 1" );
-        } else if ( s0 + i0 + e0 + r0 < 1 ) {
-            System.out.println( "Verifiez la proportion de la population des differents compartiments" );
-        }   else {
-                System.out.println( "Verifiez la proportion de la population des differents compartiments" );
-            }
+		double sommeProportionCompartiments = s0 + e0 + i0 + r0;
+		
+		assert sommeProportionCompartiments == 1 : "La somme des proportions des population au sein des compartiments doit valoir 1";
 		
 		
 		//double[] arguments ={ 0.1, 0.0001, 0.0001, 0.898};
