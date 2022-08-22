@@ -2,24 +2,37 @@ package jKendrick;
 
 
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
 
 
 import org.apache.commons.math3.ode.FirstOrderIntegrator;
 import org.apache.commons.math3.ode.nonstiff.ClassicalRungeKuttaIntegrator;
 
-import jKendrick.models.SIRModel;
+import jKendrick.models.SEIRModel;
 import jKendrick.solvers.RK4Solver;
 
 
-public class Main {
+public class MainSEIR {
 	public static void main(String[] args) {
 		double step = 1;
-		double last = 70.;
+		double last = 21900.;
 		
-		double[] arguments ={ 0.999999, 0.000001, 0.0};
+		
+		double s0 = 0.1; // initial proportion of Ss
+		double e0 = 0.0001; // initial proportion of Es
+		double i0 = 0.0001; // initial proportion of Is
+		double r0 = 0.898; // initial proportion of Rs
+		double[] arguments ={ s0, e0, i0, r0};
+		
+		//final double sommeProportionCompartiments = s0 + e0 + i0 + r0;
+		
+		//assert sommeProportionCompartiments == 1 : "La somme des proportions des populations au sein des compartiments vaut 1" ;
+			
+		
 		double [][] results = 	integratorExample(step, last, arguments);
-		Visualization viz = new Visualization ();
+		VisualizationSEIR viz = new VisualizationSEIR ();
 		
 		try {
 			viz.xchartExample(results, step, last);
@@ -31,7 +44,7 @@ public class Main {
 	private static double[][] integratorExample(double step, double last,
 			double[] args) {
 		RK4Solver rk4 = new RK4Solver(step);
-		SIRModel ode = new SIRModel(1.4247, 0.14286);
+		SEIRModel ode = new SEIRModel(1.4247, 0.14286, 0.0000391, 0.07143);
 		
 		int nbArgs = args.length;
 		int duration = (int) Math.ceil(last / step);
@@ -42,14 +55,13 @@ public class Main {
 		final double THRESHOLD = 0.001;
 		
 		do {
-			
-			System.out.format("Conditions at time %.1f:  S:%.1f  I:%.1f  R:%.1f%n",
-					t, args[0],  args[1], args[2]);
+			System.out.format("Conditions at time %.1f:  S:%.1f E:%.1f I:%.1f R:%.1f%n",
+					t, args[0],  args[1], args[2], args[3]);
 			i = (int)(t/step);
 			
-			double sommeCompartiments = (args[0] + args[1] + args[2]);
+			double sommeCompartiments = (args[0] + args[1] + args[2] + args[3]);
 			assert (Math.abs(1 - sommeCompartiments) < THRESHOLD)  : "La somme des proportions des populations au sein des compartiments vaut bien 1.";
-			
+							
 			for(int j = 0; j< nbArgs; ++j)
 				results[j][i]= args[j];
 			rk4.integrate(ode, t, args, t + step, args);
@@ -59,6 +71,5 @@ public class Main {
 		} while (t <last);	
 		return results;
 	}
-
 	
 }

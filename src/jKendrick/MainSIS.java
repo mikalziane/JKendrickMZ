@@ -9,17 +9,18 @@ import org.apache.commons.math3.ode.FirstOrderIntegrator;
 import org.apache.commons.math3.ode.nonstiff.ClassicalRungeKuttaIntegrator;
 
 import jKendrick.models.SIRModel;
+import jKendrick.models.SISModel;
 import jKendrick.solvers.RK4Solver;
 
 
-public class Main {
+public class MainSIS {
 	public static void main(String[] args) {
 		double step = 1;
 		double last = 70.;
 		
-		double[] arguments ={ 0.999999, 0.000001, 0.0};
+		double[] arguments ={ 0.999999, 0.000001};
 		double [][] results = 	integratorExample(step, last, arguments);
-		Visualization viz = new Visualization ();
+		VisualizationSIS viz = new VisualizationSIS ();
 		
 		try {
 			viz.xchartExample(results, step, last);
@@ -31,8 +32,8 @@ public class Main {
 	private static double[][] integratorExample(double step, double last,
 			double[] args) {
 		RK4Solver rk4 = new RK4Solver(step);
-		SIRModel ode = new SIRModel(1.4247, 0.14286);
 		
+		SISModel ode = new SISModel(1.4247, 0.14286);
 		int nbArgs = args.length;
 		int duration = (int) Math.ceil(last / step);
 		double[][] results = new double[nbArgs][duration];
@@ -43,11 +44,11 @@ public class Main {
 		
 		do {
 			
-			System.out.format("Conditions at time %.1f:  S:%.1f  I:%.1f  R:%.1f%n",
-					t, args[0],  args[1], args[2]);
+			System.out.format("Conditions at time %.1f:  S:%.1f  I:%.1f.%n",
+					t, args[0],  args[1]);
 			i = (int)(t/step);
 			
-			double sommeCompartiments = (args[0] + args[1] + args[2]);
+			double sommeCompartiments = (args[0] + args[1]);
 			assert (Math.abs(1 - sommeCompartiments) < THRESHOLD)  : "La somme des proportions des populations au sein des compartiments vaut bien 1.";
 			
 			for(int j = 0; j< nbArgs; ++j)
@@ -62,3 +63,4 @@ public class Main {
 
 	
 }
+

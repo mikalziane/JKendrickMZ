@@ -13,7 +13,7 @@ import org.knowm.xchart.XYSeries.XYSeriesRenderStyle;
 import org.knowm.xchart.style.Styler.ChartTheme;
 import org.knowm.xchart.style.Styler.LegendPosition;
 
-public class Visualization {
+public class VisualizationSIS {
 	
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -33,7 +33,7 @@ public class Visualization {
 		}
 				
 	// Create Chart
-	final XYChart chart = new XYChartBuilder().width(600).height(400).theme(ChartTheme.XChart).title("SIR Model").xAxisTitle("Time (days)").yAxisTitle("Proportion of individuals").build();
+	final XYChart chart = new XYChartBuilder().width(600).height(400).theme(ChartTheme.XChart).title("SIS Model").xAxisTitle("Time (day)").yAxisTitle("Proportion of individuals").build();
 
 	// Customize Chart
 		chart.getStyler().setLegendPosition(LegendPosition.InsideNE);
@@ -42,9 +42,7 @@ public class Visualization {
 	// Series
 		chart.addSeries("S", xData, yData[0]);
 		chart.addSeries("I", xData, yData[1]);
-	    chart.addSeries("R", xData, yData[2]);
-						
-
+	   				
 	// Schedule a job for the event-dispatching thread:
 	// creating and showing this application's GUI.
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -71,3 +69,4 @@ public class Visualization {
 
 
 }
+
