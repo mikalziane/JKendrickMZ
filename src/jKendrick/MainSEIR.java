@@ -2,6 +2,8 @@ package jKendrick;
 
 
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
 
 
@@ -17,18 +19,18 @@ public class MainSEIR {
 		double step = 1;
 		double last = 21900.;
 		
+		
 		double s0 = 0.1; // initial proportion of Ss
 		double e0 = 0.0001; // initial proportion of Es
 		double i0 = 0.0001; // initial proportion of Is
 		double r0 = 0.898; // initial proportion of Rs
 		double[] arguments ={ s0, e0, i0, r0};
 		
-		double sommeProportionCompartiments = s0 + e0 + i0 + r0;
+		//final double sommeProportionCompartiments = s0 + e0 + i0 + r0;
 		
-		assert sommeProportionCompartiments == 1 : "La somme des proportions des population au sein des compartiments doit valoir 1";
+		//assert sommeProportionCompartiments == 1 : "La somme des proportions des populations au sein des compartiments vaut 1" ;
+			
 		
-		
-		//double[] arguments ={ 0.1, 0.0001, 0.0001, 0.898};
 		double [][] results = 	integratorExample(step, last, arguments);
 		VisualizationSEIR viz = new VisualizationSEIR ();
 		
@@ -49,10 +51,17 @@ public class MainSEIR {
 		double[][] results = new double[nbArgs][duration];
 		double t = 0.0;
 		int i = 0;
+		
+		final double THRESHOLD = 0.001;
+		
 		do {
 			System.out.format("Conditions at time %.1f:  S:%.1f E:%.1f I:%.1f R:%.1f%n",
 					t, args[0],  args[1], args[2], args[3]);
 			i = (int)(t/step);
+			
+			double sommeCompartiments = (args[0] + args[1] + args[2] + args[3]);
+			assert (Math.abs(1 - sommeCompartiments) < THRESHOLD)  : "La somme des proportions des populations au sein des compartiments vaut bien 1.";
+							
 			for(int j = 0; j< nbArgs; ++j)
 				results[j][i]= args[j];
 			rk4.integrate(ode, t, args, t + step, args);
@@ -62,6 +71,5 @@ public class MainSEIR {
 		} while (t <last);	
 		return results;
 	}
-
 	
 }
