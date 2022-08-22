@@ -1,6 +1,7 @@
 package tests.JKendrick.models;
 
 import static org.junit.Assert.*;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,13 +21,6 @@ public class SEIRModelTest {
 	double gamma = 0.14286; // recovery rate
 	double mu = 0.0000391; // Birth_and_death_rate
 	double sigma = 0.07143; // Exposed_to_Infectious_rate
-	
-/*	@Test
-	void testPropotionOfPopulation() {
-		
-		SEIRModel ode = new SEIRModel(beta, gamma, mu, sigma);
-		assertEquals(1, ode.);
-	}*/
 	
 
 	@Test
