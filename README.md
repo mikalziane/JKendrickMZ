@@ -41,22 +41,47 @@ Then, follow this step
 
 > Import\Git\Project from git (using smart import)
 
-## Mass-action vs standard incidence
+## Writing models
+### Mass-action vs standard incidence
 Both kinds of incidence are only equivalent if N is fixed. Their assumptions are different which matter when the population gets large.
 
-### Mass-Action incidence 
+#### Mass-Action incidence 
 Mass action  assumes transmission is unbounded when the number of infected people grows.
 
 dS/dt = - beta IS 
 
 Caveat: beta typically has to be changed when N is changed.
 
-### Standard incidence
+#### Standard incidence
 Standard incidence assumes transmisson depends on the number of contacts with infected individuals and is bounded when N grows.
 
 dS/dt = - beta/N IS
 
 Note that bata/N is automatically adapted when N changes.
+### Porportions vs Cardinalities
+Some modes rely on propotions instead of cardinalities. For the sake of condistency it is assumed, in JKendrick, that they are reformulated in terms of quotients of cardinalities
+
+For instance the SIR example below has these values 
+
+Initial_Susceptibles
+			0.999999
+   
+Initial_Infecteds
+			0.000001
+
+This is reformulated as
+
+N = 1 000 000
+
+S = 999 999
+
+I = 1
+
+and implicitly
+
+R = 0
+
+STATUS : not yet enforced ^^
 
 ## Examples from Keeling and Rohani
 
