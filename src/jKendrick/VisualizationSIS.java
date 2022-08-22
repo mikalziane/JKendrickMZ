@@ -43,7 +43,6 @@ public class VisualizationSIS {
 		chart.addSeries("S", xData, yData[0]);
 		chart.addSeries("I", xData, yData[1]);
 	   				
-
 	// Schedule a job for the event-dispatching thread:
 	// creating and showing this application's GUI.
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
