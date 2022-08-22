@@ -2,13 +2,7 @@ package jKendrick;
 
 
 
-import static org.junit.Assert.assertTrue;
-
 import java.io.IOException;
-
-
-import org.apache.commons.math3.ode.FirstOrderIntegrator;
-import org.apache.commons.math3.ode.nonstiff.ClassicalRungeKuttaIntegrator;
 
 import jKendrick.models.SEIRModel;
 import jKendrick.solvers.RK4Solver;

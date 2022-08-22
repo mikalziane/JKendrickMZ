@@ -8,8 +8,6 @@ import org.apache.commons.math3.ode.FirstOrderDifferentialEquations;
 
 // Inspired by https://homepages.warwick.ac.uk/~masfz/ModelingInfectiousDiseases/Chapter2/Program_2.1/index.html
 public class SIRModel implements FirstOrderDifferentialEquations {
-	
-	
 		//private double N;
 		private double beta;
 		private double gamma;

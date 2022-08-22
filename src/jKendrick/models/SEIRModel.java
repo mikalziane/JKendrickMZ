@@ -8,9 +8,6 @@ import org.apache.commons.math3.ode.FirstOrderDifferentialEquations;
 
 // Inspired by https://homepages.warwick.ac.uk/~masfz/ModelingInfectiousDiseases/Chapter2/Program_2.6/index.html
 public class SEIRModel implements FirstOrderDifferentialEquations {
-	
-	
-		
 		private double beta;
 		private double gamma;
 		private double mu;
