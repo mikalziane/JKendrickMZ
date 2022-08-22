@@ -23,7 +23,6 @@ class SISModelTest {
 	}
 	
 	
-	
 	@Test
 	void testParametersOfModels() {
 		
