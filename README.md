@@ -41,32 +41,38 @@ Then, follow this step
 
 > Import\Git\Project from git (using smart import)
 
-## Examples
+## Mass-action vs standard incidence
+Both kinds of incidence are only equivalent if N is fixed. Their assumptions are different which matter when the population gets large.
+
+### Mass-Action incidence 
+Mass action  assumes transmission is unbounded when the number of infected people grows.
+
+dS/dt = - beta IS 
+
+Caveat: beta typically has to be changed when N is changed.
+
+### Standard incidence
+Standard incidence assumes transmisson depends on the number of contacts with infected individuals and is bounded when N grows.
+
+dS/dt = - beta/N IS
+
+Note that bata/N is automatically adapted when N changes.
+
+## Examples from Keeling and Rohani
 
 ### SIR
+The example is adapted from  [https://homepages.warwick.ac.uk/~masfz/ModelingInfectiousDiseases/Chapter2/Program_2.1/index.html](https://homepages.warwick.ac.uk/~masfz/ModelingInfectiousDiseases/Chapter2/Program_2.1/index.html).
 
-Be careful with the incidence: mass action or  standard.
+#### The (Pharo) Kendrick version
+https://github.com/KendrickOrg/kendrick/wiki/Basic-SIR-(Benchmark-Model-1)
+https://github.com/KendrickOrg/kendrick/blob/ba11051d2c8976bb27a12da0e3e51650cee99e51/src/Kendrick-Examples/KEDeterministicExamples.class.st#L1183
+![SIR Model with Pharo code](https://github.com/YvanGuifo/PhdThesisYvanGuifo_2019-2022/blob/master/notes-lectures/Images%20de%20document%20de%20note%20de%20lecture/Images/SIRModelPharoCode.png)
 
-a) dS/dt = - beta/N IS
-
-in this case beta does not change.
-
-b) dS/dt = - beta IS 
-
-in this case beta must be kept proportional to N.
-
-The example is adapted from https://github.com/KendrickOrg/kendrick/wiki/Basic-SIR-(Benchmark-Model-1)
-
-Une version détrministe est là  : https://github.com/KendrickOrg/kendrick/blob/ba11051d2c8976bb27a12da0e3e51650cee99e51/src/Kendrick-Examples/KEDeterministicExamples.class.st#L1183
-
-#### Visualization of a SIR model
-
-We use the equations and parameters from this link [https://homepages.warwick.ac.uk/~masfz/ModelingInfectiousDiseases/Chapter2/Program_2.1/index.html](https://homepages.warwick.ac.uk/~masfz/ModelingInfectiousDiseases/Chapter2/Program_2.1/index.html).
-
-> **SIR Model with Java code**
-
+#### Visualization 
 ![SIR Model with Java code](https://github.com/YvanGuifo/PhdThesisYvanGuifo_2019-2022/blob/master/notes-lectures/Images%20de%20document%20de%20note%20de%20lecture/Images/SIRModelJavaCode.png)
 
-> **SIR Model with Pharo code**
+### SIS
 
-![SIR Model with Pharo code](https://github.com/YvanGuifo/PhdThesisYvanGuifo_2019-2022/blob/master/notes-lectures/Images%20de%20document%20de%20note%20de%20lecture/Images/SIRModelPharoCode.png)
+#### SEIR
+
+
