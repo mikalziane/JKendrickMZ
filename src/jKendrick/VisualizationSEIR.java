@@ -38,7 +38,7 @@ public class VisualizationSEIR {
 	// Customize Chart
 		chart.getStyler().setLegendPosition(LegendPosition.InsideNE);
 		chart.getStyler().setDefaultSeriesRenderStyle(XYSeriesRenderStyle.Scatter);
-
+		
 	// Series
 		chart.addSeries("S", xData, yData[0]);
 		chart.addSeries("E", xData, yData[1]);
