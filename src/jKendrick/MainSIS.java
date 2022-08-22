@@ -39,11 +39,18 @@ public class MainSIS {
 		double[][] results = new double[nbArgs][duration];
 		double t = 0.0;
 		int i = 0;
+		
+		final double THRESHOLD = 0.001;
+		
 		do {
-			//System.out.format("Conditions at time %.1f:  S:%.1f  I:%.1f  R:%.1f%n",
+			
 			System.out.format("Conditions at time %.1f:  S:%.1f  I:%.1f.%n",
 					t, args[0],  args[1]);
 			i = (int)(t/step);
+			
+			double sommeCompartiments = (args[0] + args[1]);
+			assert (Math.abs(1 - sommeCompartiments) < THRESHOLD)  : "La somme des proportions des populations au sein des compartiments vaut bien 1.";
+			
 			for(int j = 0; j< nbArgs; ++j)
 				results[j][i]= args[j];
 			rk4.integrate(ode, t, args, t + step, args);
