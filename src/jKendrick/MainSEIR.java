@@ -4,7 +4,7 @@ package jKendrick;
 
 import java.io.IOException;
 
-import jKendrick.models.SEIRModel;
+import jKendrick.models.SEIR;
 import jKendrick.solvers.RK4Solver;
 
 
@@ -38,7 +38,7 @@ public class MainSEIR {
 	private static double[][] integratorExample(double step, double last,
 			double[] args) {
 		RK4Solver rk4 = new RK4Solver(step);
-		SEIRModel ode = new SEIRModel(1.4247, 0.14286, 0.0000391, 0.07143);
+		SEIR ode = new SEIR(1.4247, 0.14286, 0.0000391, 0.07143);
 		
 		int nbArgs = args.length;
 		int duration = (int) Math.ceil(last / step);

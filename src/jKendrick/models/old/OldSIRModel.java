@@ -1,4 +1,4 @@
-package jKendrick.models;
+package jKendrick.models.old;
 
 import org.apache.commons.math3.exception.DimensionMismatchException;
 
@@ -7,13 +7,13 @@ import org.apache.commons.math3.ode.FirstOrderDifferentialEquations;
 
 
 // Inspired by https://homepages.warwick.ac.uk/~masfz/ModelingInfectiousDiseases/Chapter2/Program_2.1/index.html
-public class SIRModel implements FirstOrderDifferentialEquations {
+public class OldSIRModel implements FirstOrderDifferentialEquations {
 		//private double N;
 		private double beta;
 		private double gamma;
 
 		//public SIRModel(double beta, double gamma, double N){
-		public SIRModel(double beta, double gamma){
+		public OldSIRModel(double beta, double gamma){
 			this.beta = beta;
 			this.gamma = gamma;
 			}

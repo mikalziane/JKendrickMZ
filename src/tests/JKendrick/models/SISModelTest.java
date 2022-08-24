@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import jKendrick.models.SIRModel;
 import jKendrick.models.SISModel;
+import jKendrick.models.old.OldSIRModel;
 
 class SISModelTest {
 	

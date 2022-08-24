@@ -1,14 +1,8 @@
 package jKendrick;
 
 
-
 import java.io.IOException;
 
-
-import org.apache.commons.math3.ode.FirstOrderIntegrator;
-import org.apache.commons.math3.ode.nonstiff.ClassicalRungeKuttaIntegrator;
-
-import jKendrick.models.SIRModel;
 import jKendrick.models.SISModel;
 import jKendrick.solvers.RK4Solver;
 
