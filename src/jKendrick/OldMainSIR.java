@@ -8,11 +8,11 @@ import java.io.IOException;
 import org.apache.commons.math3.ode.FirstOrderIntegrator;
 import org.apache.commons.math3.ode.nonstiff.ClassicalRungeKuttaIntegrator;
 
-import jKendrick.models.SIRModel;
+import jKendrick.models.old.OldSIRModel;
 import jKendrick.solvers.RK4Solver;
 
 
-public class Main {
+public class OldMainSIR {
 	public static void main(String[] args) {
 		double step = 1;
 		double last = 70.;
@@ -31,7 +31,7 @@ public class Main {
 	private static double[][] integratorExample(double step, double last,
 			double[] args) {
 		RK4Solver rk4 = new RK4Solver(step);
-		SIRModel ode = new SIRModel(1.4247, 0.14286);
+		OldSIRModel ode = new OldSIRModel(1.4247, 0.14286);
 		
 		int nbArgs = args.length;
 		int duration = (int) Math.ceil(last / step);

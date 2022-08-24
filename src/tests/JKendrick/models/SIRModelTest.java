@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import jKendrick.models.SIRModel;
+import jKendrick.models.old.OldSIRModel;
 
 class SIRModelTest {
 	// https://homepages.warwick.ac.uk/~masfz/ModelingInfectiousDiseases/Chapter2/Program_2.1/index.html
@@ -19,7 +19,7 @@ class SIRModelTest {
 		double beta = 1.4247; // transmission rate
 		double gamma = 0.14286; // recovery rate
 		
-		SIRModel ode = new SIRModel(beta, gamma);
+		OldSIRModel ode = new OldSIRModel(beta, gamma);
 
 		assertEquals(3, ode.getDimension());
 		

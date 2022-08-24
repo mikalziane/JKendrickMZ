@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import jKendrick.models.SEIRModel;
+import jKendrick.models.SEIR;
 
 public class SEIRModelTest {
 
@@ -26,7 +26,7 @@ public class SEIRModelTest {
 	@Test
 	void testDimension() {
 		
-		SEIRModel ode = new SEIRModel(beta, gamma, mu, sigma);
+		SEIR ode = new SEIR(beta, gamma, mu, sigma);
 		assertEquals(4, ode.getDimension());;
 	}
 	
@@ -34,7 +34,7 @@ public class SEIRModelTest {
 	@Test
 	void testParametersOfModels() {
 		
-		SEIRModel ode = new SEIRModel(beta, gamma, mu, sigma);
+		SEIR ode = new SEIR(beta, gamma, mu, sigma);
 		double[] seirDot = new double[arguments.length];
 		ode.computeDerivatives(0, arguments, seirDot);
 		
