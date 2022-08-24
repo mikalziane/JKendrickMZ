@@ -12,12 +12,14 @@ public class MainSIS {
 		double step = 1;
 		double last = 70.;
 		
+		String[] seriesNames = {"S", "I"};
+		
 		double[] arguments ={ 0.999999, 0.000001};
 		double [][] results = 	integratorExample(step, last, arguments);
-		VisualizationSIS viz = new VisualizationSIS ();
+		Visualization viz = new Visualization();
 		
 		try {
-			viz.xchartExample(results, step, last);
+			viz.xchartExample(results, step, last, seriesNames);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
