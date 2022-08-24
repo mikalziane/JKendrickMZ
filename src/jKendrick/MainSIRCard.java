@@ -14,6 +14,8 @@ public class MainSIRCard {
 		double step = 1;
 		double last = 70.;
 		
+		String[] seriesNames = {"S", "I", "R"};
+		
 		int[] compartments ={999999, 1, 0};
 		int N = 0;
 		for (int x : compartments)
@@ -30,7 +32,7 @@ public class MainSIRCard {
 		Visualization viz = new Visualization ();
 		
 		try {
-			viz.xchartExample(results, step, last);;
+			viz.xchartExample(results, step, last, seriesNames);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
