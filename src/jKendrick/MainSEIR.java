@@ -14,6 +14,9 @@ public class MainSEIR {
 		double last = 21900.;
 		
 		String[] seriesNames = {"S", "E", "I", "R"};
+		String title = "SEIR Model";
+		String xAxis = "Time (days)";
+		String yAxis = "Proportion of individuals";
 		
 		
 		double s0 = 0.1; // initial proportion of Ss
@@ -31,7 +34,7 @@ public class MainSEIR {
 		Visualization viz = new Visualization();
 		
 		try {
-			viz.xchartExample(results, step, last, seriesNames);
+			viz.xchartExample(results, step, last, seriesNames, title, xAxis, yAxis);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
