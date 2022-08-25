@@ -17,34 +17,29 @@ public class Visualization {
 	
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void xchartExample(double[][] results, double step, double last)
+	public void xchartExample(double[][] results, double step, double last, String[] seriesNames, String title, String xAxis, String yAxis)
 															throws IOException {
 		double[] xData = new double[results[0].length];
 		double[][] yData = new double[results.length][results[0].length];
-		
-		
+			
 	for (int k = 0; k < results.length; ++k) {	
 		for (int i = 0; i< (int) Math.ceil(last / step); ++i) {
 			xData[i]= i * step;
 			yData[k][i] = results[k][i];
-		
-			
 			}
 		}
 				
 	// Create Chart
-	final XYChart chart = new XYChartBuilder().width(600).height(400).theme(ChartTheme.XChart).title("SIR Model").xAxisTitle("Time (days)").yAxisTitle("Proportion of individuals").build();
+	final XYChart chart = new XYChartBuilder().width(500).height(400).theme(ChartTheme.XChart).title(title).xAxisTitle(xAxis).yAxisTitle(yAxis).build();
 
 	// Customize Chart
 		chart.getStyler().setLegendPosition(LegendPosition.InsideNE);
 		chart.getStyler().setDefaultSeriesRenderStyle(XYSeriesRenderStyle.Scatter);
 
 	// Series
-		chart.addSeries("S", xData, yData[0]);
-		chart.addSeries("I", xData, yData[1]);
-	    chart.addSeries("R", xData, yData[2]);
-						
-
+		for (int i = 0; i < seriesNames.length; i++) {
+		    chart.addSeries(seriesNames[i],xData, yData[i]);
+		}						
 	// Schedule a job for the event-dispatching thread:
 	// creating and showing this application's GUI.
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -68,6 +63,5 @@ public class Visualization {
 			});
 
 	}
-
 
 }
