@@ -14,6 +14,11 @@ public class MainSIRCard {
 		double step = 1;
 		double last = 70.;
 		
+		String[] seriesNames = {"S", "I", "R"};
+		String title = "SIR Model";
+		String xAxis = "Time (days)";
+		String yAxis = "Proportion of individuals";
+		
 		int[] compartments ={999999, 1, 0};
 		int N = 0;
 		for (int x : compartments)
@@ -30,7 +35,7 @@ public class MainSIRCard {
 		Visualization viz = new Visualization ();
 		
 		try {
-			viz.xchartExample(results, step, last);;
+			viz.xchartExample(results, step, last, seriesNames, title, xAxis, yAxis);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

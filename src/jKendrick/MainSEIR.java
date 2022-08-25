@@ -13,6 +13,11 @@ public class MainSEIR {
 		double step = 1;
 		double last = 21900.;
 		
+		String[] seriesNames = {"S", "E", "I", "R"};
+		String title = "SEIR Model";
+		String xAxis = "Time (days)";
+		String yAxis = "Proportion of individuals";
+		
 		
 		double s0 = 0.1; // initial proportion of Ss
 		double e0 = 0.0001; // initial proportion of Es
@@ -26,10 +31,10 @@ public class MainSEIR {
 			
 		
 		double [][] results = 	integratorExample(step, last, arguments);
-		VisualizationSEIR viz = new VisualizationSEIR ();
+		Visualization viz = new Visualization();
 		
 		try {
-			viz.xchartExample(results, step, last);
+			viz.xchartExample(results, step, last, seriesNames, title, xAxis, yAxis);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
