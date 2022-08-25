@@ -13,13 +13,16 @@ public class MainSIS {
 		double last = 70.;
 		
 		String[] seriesNames = {"S", "I"};
+		String title = "SIS Model";
+		String xAxis = "Time (days)";
+		String yAxis = "Proportion of individuals";
 		
 		double[] arguments ={ 0.999999, 0.000001};
 		double [][] results = 	integratorExample(step, last, arguments);
 		Visualization viz = new Visualization();
 		
 		try {
-			viz.xchartExample(results, step, last, seriesNames);
+			viz.xchartExample(results, step, last, seriesNames, title, xAxis, yAxis);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
