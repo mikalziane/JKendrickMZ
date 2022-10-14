@@ -16,8 +16,8 @@ class RouletteWheelTest {
 		double[] rands1 = {.0, .1, .1999, .2, .2001,
 				.5, .7999, .8, .8001, 1.0};
 
-		int[] events1 = {0, 0, 0, 0, 1, 1, 1, 1, 1, 1};
-//		testWith(rates1, sums1, rands1, events1, epsilon);
+		int[] events1 = {0, 0, 0, 1, 1, 1, 1, 1, 1, 1};
+		testWith(rates1, sums1, rands1, events1, epsilon);
 		
 		double[] rates2 = {.5, .2, .3};
 		double[] sums2 =  {0., .5, .7, 1.};
