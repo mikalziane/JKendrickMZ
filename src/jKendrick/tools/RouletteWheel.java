@@ -18,7 +18,7 @@ public class RouletteWheel {
 			sums[i] = sums[i-1] + rates[i];
 		assert equals(1., sums[rates.length -1]);
 		// to be sure a provided rand is never bigger
-		// than the last sum :
+		// than the last sum:
 		sums[rates.length -1] += 2* epsilon; 
 	}
 
@@ -37,7 +37,6 @@ public class RouletteWheel {
 		return Math.abs(x1 - x2) < epsilon;
 	}
 	public boolean lesser(double x1, double x2) {
-		System.out.println("lesser("+x1+", "+x2+")");
 		return x1 < x2 || (x1 - epsilon) <x2  || (x1 + epsilon) <x2;
 	}
 	
