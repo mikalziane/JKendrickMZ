@@ -1,11 +1,13 @@
 package jKendrick.solvers;
 
+
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Random;
 
 import jKendrick.events.IEvent;
-import jKendrick.tools.RouletteWheel;
+import jKendrick.tools.GeneralizedRW;
+
 
 public class Gillespie {
 	private int nbCycle;
@@ -41,16 +43,26 @@ public class Gillespie {
 		return result;
 	}
 	
-	public double[] getRates() {
+	public double[] getRates(double[] population) {
 		double[] r=new double[events.length];
 		for(int i=0;i<r.length;++i) {
-			r[i]=events[i].getRate();
+			r[i]=events[i].getRate(compartments,population);
 		}
 		return r;
 	}
 	
+	public double[] getInitialPopulation() {
+		double[] pop=new double[nbIndiv.size()];
+		int i=0;
+		for(Map.Entry<String, Integer> entry : nbIndiv.entrySet()) {
+			pop[i]=(double)entry.getValue();
+			++i;
+		}
+		return pop;
+	}
+	
 	public double getR() {
-		double[] rates=getRates();
+		double[] rates=getRates(getInitialPopulation());
 		double r=0;
 		for(int i=0;i<rates.length;++i) {
 			r+=rates[i];
@@ -65,7 +77,7 @@ public class Gillespie {
 			for(int j=1;j<nbSteps;++j) {
 				double rand1=random.nextDouble();
 				double tau=1/r*Math.log(1/rand1);
-				RouletteWheel rw=new RouletteWheel(getRates(),0.0000001);
+				GeneralizedRW rw=new GeneralizedRW(getRates(result[i][j-1]),0.0000001);
 				int currentEvent=rw.getEvent();
 				result[i][j]=events[currentEvent].action(compartments, result[i][j-1]);
 				result[i][j][timeRow]=result[i][j-1][timeRow]+tau;
