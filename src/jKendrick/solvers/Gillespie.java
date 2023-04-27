@@ -22,15 +22,15 @@ public class Gillespie {
 		this.nbCycle=nbCycle;
 		this.nbSteps=nbStep;
 		this.nbIndiv=nbIndiv;
-		this.compartments=(String[]) nbIndiv.keySet().toArray();
+		this.compartments=nbIndiv.keySet().toArray((new String[nbIndiv.size()]));
+		
 		this.result=initResult();
 		this.random=new Random();
-		
+		this.events=events;
 	}
 	
 	public double[][][] initResult(){
 		double result[][][]=new double[nbCycle][nbSteps][nbIndiv.size()+1];
-		Arrays.fill(result, 0.);
 		int j=0;
 		for(int i=0;i<nbCycle;++i) {
 			for(Map.Entry<String, Integer> entry : nbIndiv.entrySet()) {

@@ -37,7 +37,7 @@ public class Infection implements IEvent{
 			if(compartments[i].equals("S")) {
 				indexSI[0]=i;
 			}
-			else if(compartments[i].equals("S")) {
+			else if(compartments[i].equals("I")) {
 				indexSI[1]=i;
 			}
 		}
