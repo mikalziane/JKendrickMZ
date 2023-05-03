@@ -19,6 +19,10 @@ public class Gillespie {
 	private Random random;
 	
 	public Gillespie(int nbCycle, int nbStep, Map<String,Integer>nbIndiv, IEvent[] events) {
+		assert nbCycle>0;
+		assert nbStep>0;
+		assert nbIndiv.size()>0;
+		assert events.length>0;
 		this.nbCycle=nbCycle;
 		this.nbSteps=nbStep;
 		this.nbIndiv=nbIndiv;
@@ -44,6 +48,7 @@ public class Gillespie {
 	}
 	
 	public double[] getRates(double[] population) {
+		assert population.length>0;
 		double[] r=new double[events.length];
 		for(int i=0;i<r.length;++i) {
 			r[i]=events[i].getRate(compartments,population);

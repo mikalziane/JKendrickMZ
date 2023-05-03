@@ -1,15 +1,15 @@
 package jKendrick.events;
 
-public class Recovery implements IEvent {
-	private double rate;
+public class Recovery extends Event {
+	
 	public Recovery(double rate) {
-		this.rate=rate;
+		super(rate);
 	}
 	@Override
 	public double getRate(String[] compartments, double[] population) {
 		int indexI=indexOf(compartments, "I");
 		assert indexI>=0;
-		double r=rate*population[indexI];
+		double r=super.getRate()*population[indexI];
 		return r;
 	}
 
@@ -25,15 +25,6 @@ public class Recovery implements IEvent {
 		return r;
 	}
 	
-	public int indexOf(String[] compartments, String x) {
-		int index=-1;
-		for(int i=0;i<compartments.length;++i) {
-			if(compartments[i].equals(x)) {
-				index=i;
-			}
-		}
-		return index;
-		
-	}
+	
 	
 }
