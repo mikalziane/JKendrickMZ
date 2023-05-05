@@ -11,9 +11,13 @@ public class GeneralizedRW extends RouletteWheel {
 		double sum = 0.;
 		for (double d : rates)
 			sum += d;
-		assert sum != 0.;
+		if(sum==0.) {
+			nrates[0]=-1.;
+		}
+		else {
 		for (int i=0; i != rates.length; ++i)
 			nrates[i] = rates[i] / sum;
+		}
 		return nrates;
 	}
 

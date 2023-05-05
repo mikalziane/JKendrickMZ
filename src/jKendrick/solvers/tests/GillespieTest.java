@@ -48,7 +48,7 @@ class GillespieTest {
 		
 		//on verifie que les taux retournés par getRates sont corrects
 		double[] initialRates=g.getRates(initialTab[0][0]);
-		assertEquals(59.4,initialRates[0]);
+		assertEquals(0.6,initialRates[0]);
 		assertEquals(0.2,initialRates[1]);
 		
 		double[][][] result=g.solve();

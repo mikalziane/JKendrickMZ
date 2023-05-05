@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-//import jKendrick.events.EndOfImmunity;
+import jKendrick.events.EndOfImmunity;
 import jKendrick.events.IEvent;
 import jKendrick.events.Infection;
 import jKendrick.events.Recovery;
@@ -21,8 +21,8 @@ public class MainSiRGillespie {
 		int nbStep=2000;
 		IEvent Infect=new Infection(0.6);
 		IEvent Recov=new Recovery(0.2);
-		//IEvent EndImmu=new EndOfImmunity(0.4);
-		IEvent[] events= {Infect,Recov}; 
+		IEvent EndImmu=new EndOfImmunity(0.1);
+		IEvent[] events= {Infect,Recov,EndImmu}; 
 		Gillespie g=new Gillespie(nbCycle, nbStep, nbIndiv, events);
 		double[][][] result=g.solve();
 		double[][] average=g.getAverage();
@@ -49,7 +49,7 @@ public class MainSiRGillespie {
 		System.out.println(avStep);
 		
 		double[][] values=g.getValues();
-		double last=avStep*nbStep;
+		double last=avStep*nbStep-0.0000001;
 		System.out.println(last/avStep);
 		String[] labels=nbIndiv.keySet().toArray((new String[nbIndiv.size()]));
 		Visualization v=new Visualization();

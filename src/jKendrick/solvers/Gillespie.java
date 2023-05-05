@@ -84,7 +84,12 @@ public class Gillespie {
 				double tau=1/r*Math.log(1/rand1);
 				GeneralizedRW rw=new GeneralizedRW(getRates(result[i][j-1]),0.0000001);
 				int currentEvent=rw.getEvent();
-				result[i][j]=events[currentEvent].action(compartments, result[i][j-1]);
+				if(currentEvent!=-1) {
+					result[i][j]=events[currentEvent].action(compartments, result[i][j-1]);
+				}
+				else {
+					result[i][j]=result[i][j-1];
+				}
 				result[i][j][timeRow]=result[i][j-1][timeRow]+tau;
 			}
 		}

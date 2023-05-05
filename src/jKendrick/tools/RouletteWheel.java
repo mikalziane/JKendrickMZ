@@ -16,7 +16,8 @@ public class RouletteWheel {
 		sums[0] = rates[0];
 		for (int i =1; i<rates.length; ++i)
 			sums[i] = sums[i-1] + rates[i];
-		assert equals(1., sums[rates.length -1]);
+		
+		assert (equals(1., sums[rates.length -1]) || equals(-1.,sums[rates.length -1]));
 		// to be sure a provided rand is never bigger
 		// than the last sum:
 		sums[rates.length -1] += 2* epsilon; 
@@ -43,6 +44,9 @@ public class RouletteWheel {
 	// returns the first i for which  sum(i) >= rand
 	public int getEvent(double rand) {
 		assert rand >=0.0 && rand <= 1.0;
+		if(rate(0)==-1.) {
+			return -1;
+		}
 		int i;
 		for (i = 0; i < rates.length && lesser(sum(i), rand) ; ++i)
 			;
