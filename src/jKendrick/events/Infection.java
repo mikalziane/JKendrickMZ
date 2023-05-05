@@ -13,7 +13,14 @@ public class Infection extends Event{
 		int indexS=indexOf(compartments, "S");
 		int indexI=indexOf(compartments, "I");
 		assert indexS>=0 && indexI>=0;
-		r=super.getRate()*population[indexS]*population[indexI];
+		double nbS=population[indexS];
+		double nbI=population[indexI];
+		if(nbS>nbI) {
+			r=super.getRate()*nbI;
+		}
+		else {
+			r=super.getRate()*nbS;
+		}
 		return r;
 	}
 

@@ -2,6 +2,7 @@ package jKendrick.solvers.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import jKendrick.events.Infection;
 import jKendrick.events.Recovery;
 import jKendrick.solvers.Gillespie;
+import jKendrick.Visualization;
 import jKendrick.events.IEvent;
 class GillespieTest {
 
@@ -85,6 +87,18 @@ class GillespieTest {
 		assertThrows(AssertionError.class,
 	            ()->{Gillespie g0Event=new Gillespie(nbCycle, nbStep, nbIndiv, noEvents);} );
 		
+		double avStep=g.getAverageStep();
+		System.out.println(avStep);
+		
+		double[][] values=g.getValues();
+		double last=avStep*nbStep;
+		String[] labels=nbIndiv.keySet().toArray((new String[nbIndiv.size()]));
+		Visualization v=new Visualization();
+		try {
+		v.xchartExample(values, avStep, last, labels, "Test SIR", "population", "temps");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

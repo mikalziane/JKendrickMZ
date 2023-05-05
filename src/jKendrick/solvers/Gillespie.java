@@ -106,4 +106,25 @@ public class Gillespie {
 		}
 		return averages;
 	}
+	
+	public double getAverageStep() {
+		double[][] averages=getAverage();
+		double avStep=0.;
+		for(int i=1;i<nbSteps;++i) {
+			avStep+=averages[i][(averages[0].length)-1]-averages[i-1][(averages[0].length)-1];
+		}
+		avStep=avStep/nbSteps;
+		return avStep;
+	}
+	
+	public double[][] getValues(){
+		double[][] averages=getAverage();
+		double[][] values=new double[nbIndiv.size()][nbSteps];
+		for(int i=0;i<nbSteps;++i) {
+			for(int j=0;j<nbIndiv.size();++j) {
+				values[j][i]=averages[i][j];
+			}
+		}
+		return values;
+	}
 }
