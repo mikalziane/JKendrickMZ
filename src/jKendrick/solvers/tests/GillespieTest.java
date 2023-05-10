@@ -7,12 +7,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.math3.stat.inference.KolmogorovSmirnovTest;
 import org.junit.jupiter.api.Test;
 
 import jKendrick.events.Infection;
 import jKendrick.events.Recovery;
 import jKendrick.solvers.Gillespie;
 import jKendrick.Visualization;
+import jKendrick.events.EndOfImmunity;
 import jKendrick.events.IEvent;
 class GillespieTest {
 
@@ -99,6 +101,41 @@ class GillespieTest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		//deuxieme echantillon pour comparer au premier avec le test de KolmogorovSmirnov
+		Map<String, Integer> nbIndiv2=new HashMap<>();
+		nbIndiv2.put("S", 990);
+		nbIndiv2.put("I", 10);
+		nbIndiv2.put("R", 2);
+		int nbCycle2=100;
+		int nbStep2=2000;
+		IEvent Infect2=new Infection(6.0);
+		IEvent Recov2=new Recovery(0.6);
+		IEvent[] events2= {Infect2,Recov2}; 
+		Gillespie g2=new Gillespie(nbCycle2, nbStep2, nbIndiv2, events2);
+		double[][][] result2=g.solve();
+		double[][] values2=g.getValues();
+		
+		
+		double p0=calculateKs(values[0], values2[0]);
+		double p1=calculateKs(values[1], values2[1]);
+		double p2=calculateKs(values[2], values2[2]);
+		System.out.println("p values :"+p0+" _ "+p1+" _ "+p2);
+		assertTrue(p0>0.05);
+		assertTrue(p1>0.05);
+		assertTrue(p2>0.05);
+		
+		
+		
+		
+		
 	}
+	KolmogorovSmirnovTest ks=new KolmogorovSmirnovTest();
+	 public double calculateKs(double[] x, double[] y){ 
+	     double d = ks.kolmogorovSmirnovStatistic(x, y); 
+	     double p = ks.exactP(d, x.length, y.length, 
+	    	     false);
+	   return p;
+	   } 
 
 }

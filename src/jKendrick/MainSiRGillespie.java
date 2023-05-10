@@ -19,8 +19,8 @@ public class MainSiRGillespie {
 		nbIndiv.put("R", 0);
 		int nbCycle=100;
 		int nbStep=2000;
-		IEvent Infect=new Infection(0.6);
-		IEvent Recov=new Recovery(0.2);
+		IEvent Infect=new Infection(6.0);
+		IEvent Recov=new Recovery(0.6);
 		IEvent EndImmu=new EndOfImmunity(0.1);
 		IEvent[] events= {Infect,Recov,EndImmu}; 
 		Gillespie g=new Gillespie(nbCycle, nbStep, nbIndiv, events);
@@ -58,6 +58,8 @@ public class MainSiRGillespie {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		
 		
 	}
 
