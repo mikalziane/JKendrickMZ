@@ -10,6 +10,7 @@ public class Infection extends Event{
 	@Override
 	public double getRate(String[] compartments, double[] population) {
 		double r=0;
+		assert population.length>=compartments.length;
 		int indexS=indexOf(compartments, "S");
 		int indexI=indexOf(compartments, "I");
 		assert indexS>=0 && indexI>=0;
@@ -26,6 +27,7 @@ public class Infection extends Event{
 
 	@Override
 	public double[] action(String[] compartments, double[] population) {
+		assert population.length>=compartments.length;
 		int indexS=indexOf(compartments, "S");
 		int indexI=indexOf(compartments, "I");
 		assert indexS>=0 && indexI>=0;
