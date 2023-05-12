@@ -24,7 +24,8 @@ public class MainSiRGillespie {
 		IEvent EndImmu=new EndOfImmunity(0.1);
 		IEvent[] events= {Infect,Recov,EndImmu}; 
 		Gillespie g=new Gillespie(nbCycle, nbStep, nbIndiv, events);
-		double[][][] result=g.solve();
+		g.solve();
+		double[][][] result=g.getResult();
 		double[][] average=g.getAverage();
 		
 		for(int a=0;a<result.length;++a) {
@@ -37,7 +38,7 @@ public class MainSiRGillespie {
 			}
 		}
 		
-		//affichage des valeurs moyennes
+		//display of averages values
 		System.out.println("Moyenne:");
 		for(int i=0;i<average.length;++i) {
 			for(int j=0;j<average[0].length;++j) {
@@ -46,11 +47,10 @@ public class MainSiRGillespie {
 			System.out.println(" ");
 		}
 		double avStep=g.getAverageStep();
-		System.out.println(avStep);
+		
 		
 		double[][] values=g.getValues();
 		double last=avStep*nbStep-0.0000001;
-		System.out.println(last/avStep);
 		String[] labels=nbIndiv.keySet().toArray((new String[nbIndiv.size()]));
 		Visualization v=new Visualization();
 		try {

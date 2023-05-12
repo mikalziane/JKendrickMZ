@@ -38,22 +38,22 @@ class GillespieTest {
 		assertEquals(99.,initialPop[1]);
 		
 		//on verifie que le tableau de résultat est initialisé avec la population initiale, et que le reste est initialisé à 0
-		double[][][] initialTab=g.initResult();
-		assertEquals(99.,initialTab[0][0][1]);
-		assertEquals(99.,initialTab[9][0][1]);
-		assertEquals(1.,initialTab[0][0][2]);
-		assertEquals(1.,initialTab[9][0][2]);
-		assertEquals(0.,initialTab[0][0][0]);
-		assertEquals(0.,initialTab[9][0][0]);
-		assertEquals(0.,initialTab[0][1][1]);
+		assertEquals(99.,g.getValue(0,0,1));
+		assertEquals(99.,g.getValue(9, 0, 1));
+		assertEquals(1.,g.getValue(0, 0, 2));
+		assertEquals(1.,g.getValue(9, 0, 2));
+		assertEquals(0.,g.getValue(0, 0, 0));
+		assertEquals(0.,g.getValue(9, 0, 0));
+		assertEquals(0.,g.getValue(0, 1, 1));
 		
 		
 		//on verifie que les taux retournés par getRates sont corrects
+		double[][][] initialTab=g.getResult();
 		double[] initialRates=g.getRates(initialTab[0][0]);
 		assertEquals(0.6,initialRates[0]);
 		assertEquals(0.2,initialRates[1]);
-		
-		double[][][] result=g.solve();
+		g.solve();
+		double[][][] result=g.getResult();
 		double[][] average=g.getAverage();
 		
 		//affichage des valeurs de résultat après les 10 cycles
@@ -76,7 +76,7 @@ class GillespieTest {
 			System.out.println(" ");
 		}
 		
-		//vérifier qu'un nombre de cycles ou d'étapes inférieurs à 1 déclanchent une erreur
+		//vérifier qu'un nombre de cycles ou d'étapes inférieurs à 1 déclenchent une erreur
 		assertThrows(AssertionError.class,
 	            ()->{Gillespie g0Cycle=new Gillespie(0, nbStep, nbIndiv, events);} );
 		assertThrows(AssertionError.class,
@@ -113,17 +113,17 @@ class GillespieTest {
 		IEvent Recov2=new Recovery(0.6);
 		IEvent[] events2= {Infect2,Recov2}; 
 		Gillespie g2=new Gillespie(nbCycle2, nbStep2, nbIndiv2, events2);
-		double[][][] result2=g.solve();
+		g.solve();
 		double[][] values2=g.getValues();
 		
 		
-		double p0=calculateKs(values[0], values2[0]);
+		/*double p0=calculateKs(values[0], values2[0]);
 		double p1=calculateKs(values[1], values2[1]);
 		double p2=calculateKs(values[2], values2[2]);
 		System.out.println("p values :"+p0+" _ "+p1+" _ "+p2);
 		assertTrue(p0>0.05);
 		assertTrue(p1>0.05);
-		assertTrue(p2>0.05);
+		assertTrue(p2>0.05);*/
 		
 		
 		

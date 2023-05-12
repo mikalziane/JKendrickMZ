@@ -27,13 +27,12 @@ public class Gillespie {
 		this.nbSteps=nbStep;
 		this.nbIndiv=nbIndiv;
 		this.compartments=nbIndiv.keySet().toArray((new String[nbIndiv.size()]));
-		
-		this.result=initResult();
+		initValues();
 		this.random=new Random();
 		this.events=events;
 	}
 	
-	public double[][][] initResult(){
+	public void initValues(){
 		double result[][][]=new double[nbCycle][nbSteps][nbIndiv.size()+1];
 		int j=0;
 		for(int i=0;i<nbCycle;++i) {
@@ -44,7 +43,7 @@ public class Gillespie {
 			result[i][0][j]=0.;
 			j=0;
 		}
-		return result;
+		this.result=result;
 	}
 	
 	public double[] getRates(double[] population) {
@@ -75,7 +74,7 @@ public class Gillespie {
 		return r;
 	}
 	
-	public double[][][] solve(){
+	public void solve(){
 		double r=getR();
 		int timeRow=nbIndiv.size();
 		for(int i=0;i<nbCycle;++i) {
@@ -93,7 +92,6 @@ public class Gillespie {
 				result[i][j][timeRow]=result[i][j-1][timeRow]+tau;
 			}
 		}
-		return result;
 	}
 	
 	public double[][] getAverage(){
@@ -131,5 +129,21 @@ public class Gillespie {
 			}
 		}
 		return values;
+	}
+	
+	public double getValue(int cycle, int step, int compartment) {
+		return result[cycle][step][compartment];
+	}
+	
+	public double[][][] getResult(){
+		double r[][][]=new double[nbCycle][nbSteps][nbIndiv.size()+1];
+		for(int i=0;i<nbCycle;++i) {
+			for(int j=0;j<nbSteps;++j) {
+				for(int k=0;k<=nbIndiv.size();++k) {
+					r[i][j][k]=result[i][j][k];
+				}
+			}
+		}
+		return r;
 	}
 }
