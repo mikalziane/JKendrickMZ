@@ -14,11 +14,11 @@ public class MainSiRGillespie {
 
 	public static void main(String[] args) {
 		Map<String, Integer> nbIndiv=new HashMap<>();
-		nbIndiv.put("S", 999);
+		nbIndiv.put("S", 99);
 		nbIndiv.put("I", 1);
 		nbIndiv.put("R", 0);
-		int nbCycle=100;
-		int nbStep=2000;
+		int nbCycle=200;
+		int nbStep=500;
 		IEvent Infect=new Infection(6.0);
 		IEvent Recov=new Recovery(0.6);
 		IEvent EndImmu=new EndOfImmunity(0.1);
@@ -53,13 +53,18 @@ public class MainSiRGillespie {
 		double last=avStep*nbStep-0.0000001;
 		String[] labels=nbIndiv.keySet().toArray((new String[nbIndiv.size()]));
 		Visualization v=new Visualization();
-		try {
+		/*try {
 		v.xchartExample(values, avStep, last, labels, "Test SIR", "population", "temps");
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 		
-		
+		try {
+			v.stochasticChart(result, average, labels, "Test SIR", "population", "temps");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
 		
 	}
 
