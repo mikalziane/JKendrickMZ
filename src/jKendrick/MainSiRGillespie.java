@@ -48,6 +48,7 @@ public class MainSiRGillespie {
 		}
 		double avStep=g.getAverageStep();
 		
+		double[][] medianPath=g.getMedianPath();
 		
 		double[][] values=g.getValues();
 		double last=avStep*nbStep-0.0000001;
@@ -59,8 +60,14 @@ public class MainSiRGillespie {
 			e.printStackTrace();
 		}*/
 		
-		try {
+		/*try {
 			v.stochasticChart(result, average, labels, "Test SIR", "population", "temps");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}*/
+			
+		try {
+			v.stochasticChart(result, medianPath, labels, "Test SIR", "temps","population");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

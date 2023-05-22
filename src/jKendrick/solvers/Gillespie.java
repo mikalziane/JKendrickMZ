@@ -147,13 +147,96 @@ public class Gillespie {
 		return r;
 	}
 	
-	public void sort(double[] t) {
+	public double[][] getMedianPath(){
+		double[][] median=new double[nbSteps][nbIndiv.size()+1];
+		double[][][] r=getResult();
+		int cycle=getMedCycle();
+		median=r[cycle];
+		return median;
+	}
+	
+	public int getMedCycle() {
+		int min=0;
+		double[][][] scores=getScores();
+		for(int i=0;i<nbCycle;++i) {
+			if(getCycleScore(scores, min)>getCycleScore(scores, i)) {
+				min=i;
+			}
+		}
+		return min;
+		
+	}
+	
+	public double getCycleScore(double[][][] scores, int cycle) {
+		double[] cycleScores=getCycleScores(scores, cycle);
+		double score=0.;
+		for(int i=0;i<cycleScores.length;++i) {
+			score+=cycleScores[i];
+		}
+		score=score/cycleScores.length;
+		return score;
+	}
+	
+	public double[] getCycleScores(double[][][] scores, int cycle){
+		int nbScores=nbSteps*(nbIndiv.size()+1);
+		double[] cycleScores=new double[nbScores];
+		int k=0;
+		for(int i=0;i<nbSteps;++i) {
+			for(int j=0;j<=nbIndiv.size();++j) {
+				cycleScores[k]=scores[i][j][cycle];
+			}
+		}
+		return cycleScores;		
+	}
+	
+	public double[][][] getScores(){
+		double[][][] scores=new double[nbSteps][nbIndiv.size()+1][nbCycle];
+		for(int i=0;i<nbSteps;++i) {
+			for(int j=0;j<=nbIndiv.size();++j) {
+				scores[i][j]=getRanks(i, j);
+			}
+		}
+		return scores;
+	}
+	
+	
+	
+	public double[] getRanks(int step, int compartment) {
+		double[][][] r=getResult();
+		double[] tab=new double[nbCycle];
+		for(int i=0;i<nbCycle;++i) {
+			tab[i]=r[i][step][compartment];
+		}
+		double[] sorted=sort(tab)[1];
+		double[] ranks=new double[nbCycle];
+		for(int i=0;i<nbCycle;++i) {
+			for(int j=0;j<nbCycle;++j) {
+				if(sorted[j]==i) {
+					ranks[i]=j;
+				}
+			}
+		}
+		return ranks;
+	}
+	
+	public double[][] prepareToSort(double[] t){
+		double[][] p=new double[2][t.length];
+		for(int i=0;i<t.length;++i) {
+			p[0][i]=(double)i;
+			p[1][i]=t[i];
+		}
+		return p;
+	}
+	
+	public double[][] sort(double[] tab) {
+		double[][] t=prepareToSort(tab);
 		if(t.length>0) {
 			sort(t,0,t.length-1);
 		}
+		return t;
 	}
 	
-	public void sort(double[] t, int start, int end) {
+	public void sort(double[][] t, int start, int end) {
 		if(start != end) {
 			int mid=(start+end)/2;
 			sort(t,start,mid);
@@ -162,11 +245,12 @@ public class Gillespie {
 		}
 	}
 	
-	public void merge(double[] t, int start, int mid, int end) {
+	public void merge(double[][] t, int start, int mid, int end) {
 		int start2=mid+1;
-		double[] tab1=new double[mid-start+1];
+		double[][] tab1=new double[2][mid-start+1];
 		for(int i=start; i<=mid;++i) {
-			tab1[i-start]=t[i];
+			tab1[0][i-start]=t[0][i];
+			tab1[1][i-start]=t[1][i];
 		}
 		int c1=start;
 		int c2=start2;
@@ -174,12 +258,14 @@ public class Gillespie {
 			if(c1==start2) {
 				break;
 			}
-			else if((c2==end+1)||(tab1[c1-start]<t[c2])) {
-				t[i]=tab1[c1-start];
+			else if((c2==end+1)||(tab1[1][c1-start]<t[1][c2])) {
+				t[0][i]=tab1[0][c1-start];
+				t[1][i]=tab1[1][c1-start];
 				++c1;
 			}
 			else {
-				t[i]=t[c2];
+				t[0][i]=t[0][c2];
+				t[1][i]=t[1][c2];
 				++c2;
 			}
 		}
