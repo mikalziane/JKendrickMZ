@@ -146,4 +146,42 @@ public class Gillespie {
 		}
 		return r;
 	}
+	
+	public void sort(double[] t) {
+		if(t.length>0) {
+			sort(t,0,t.length-1);
+		}
+	}
+	
+	public void sort(double[] t, int start, int end) {
+		if(start != end) {
+			int mid=(start+end)/2;
+			sort(t,start,mid);
+			sort(t,mid+1,end);
+			merge(t,start,mid,end);
+		}
+	}
+	
+	public void merge(double[] t, int start, int mid, int end) {
+		int start2=mid+1;
+		double[] tab1=new double[mid-start+1];
+		for(int i=start; i<=mid;++i) {
+			tab1[i-start]=t[i];
+		}
+		int c1=start;
+		int c2=start2;
+		for(int i=start;i<=end;++i) {
+			if(c1==start2) {
+				break;
+			}
+			else if((c2==end+1)||(tab1[c1-start]<t[c2])) {
+				t[i]=tab1[c1-start];
+				++c1;
+			}
+			else {
+				t[i]=t[c2];
+				++c2;
+			}
+		}
+	}
 }
