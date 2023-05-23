@@ -17,7 +17,7 @@ public class MainSiRGillespie {
 		nbIndiv.put("S", 99);
 		nbIndiv.put("I", 1);
 		nbIndiv.put("R", 0);
-		int nbCycle=200;
+		int nbCycle=100;
 		int nbStep=500;
 		IEvent Infect=new Infection(6.0);
 		IEvent Recov=new Recovery(0.6);

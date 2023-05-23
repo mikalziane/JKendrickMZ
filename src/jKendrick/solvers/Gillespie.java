@@ -32,6 +32,7 @@ public class Gillespie {
 		this.events=events;
 	}
 	
+	//initialise le tableau result avec les valeurs initiales
 	public void initValues(){
 		double result[][][]=new double[nbCycle][nbSteps][nbIndiv.size()+1];
 		int j=0;
@@ -46,6 +47,7 @@ public class Gillespie {
 		this.result=result;
 	}
 	
+	//retourne un tableau de taux de probabilité de chaque évènement en fonction de la population à un temps t
 	public double[] getRates(double[] population) {
 		assert population.length>0;
 		double[] r=new double[events.length];
@@ -55,6 +57,7 @@ public class Gillespie {
 		return r;
 	}
 	
+	//retourne un tableau avec la population initiale de chaque compartment
 	public double[] getInitialPopulation() {
 		double[] pop=new double[nbIndiv.size()];
 		int i=0;
@@ -65,6 +68,7 @@ public class Gillespie {
 		return pop;
 	}
 	
+	//retourne la valeur R=somme des taux des evenements seloj la population initiale
 	public double getR() {
 		double[] rates=getRates(getInitialPopulation());
 		double r=0;
@@ -73,7 +77,7 @@ public class Gillespie {
 		}
 		return r;
 	}
-	
+	//applique l'algorithme de Gillespie(et range les resultats dans le tableau result)
 	public void solve(){
 		double r=getR();
 		int timeRow=nbIndiv.size();
@@ -94,6 +98,7 @@ public class Gillespie {
 		}
 	}
 	
+	//retourne un tableau avec les valeurs moyennes pour chaque étape pour chaque compartment
 	public double[][] getAverage(){
 		double[][] averages=new double[nbSteps][nbIndiv.size()+1];
 		double x=0.;
@@ -110,6 +115,7 @@ public class Gillespie {
 		return averages;
 	}
 	
+	//retourne la duree moyenne d'une etape
 	public double getAverageStep() {
 		double[][] averages=getAverage();
 		double avStep=0.;
@@ -120,6 +126,7 @@ public class Gillespie {
 		return avStep;
 	}
 	
+	//retourne le tableau des moyennes inverse et sans la ligne des durees
 	public double[][] getValues(){
 		double[][] averages=getAverage();
 		double[][] values=new double[nbIndiv.size()][nbSteps];
@@ -131,10 +138,12 @@ public class Gillespie {
 		return values;
 	}
 	
+	//retourne le resultat en fonction d'un cycle, d'une etape et d'un compartment
 	public double getValue(int cycle, int step, int compartment) {
 		return result[cycle][step][compartment];
 	}
 	
+	//retourne une copie du tableau de resultat
 	public double[][][] getResult(){
 		double r[][][]=new double[nbCycle][nbSteps][nbIndiv.size()+1];
 		for(int i=0;i<nbCycle;++i) {
@@ -147,6 +156,7 @@ public class Gillespie {
 		return r;
 	}
 	
+	//retourne un tableau qui contient le cycle median
 	public double[][] getMedianPath(){
 		double[][] median=new double[nbSteps][nbIndiv.size()+1];
 		double[][][] r=getResult();
@@ -155,29 +165,31 @@ public class Gillespie {
 		return median;
 	}
 	
+	//retourne l'index du cycle median
 	public int getMedCycle() {
 		int min=0;
-		double[][][] scores=getScores();
+		double[][][] scores=getAllRanks();
 		for(int i=0;i<nbCycle;++i) {
 			if(getCycleScore(scores, min)>getCycleScore(scores, i)) {
 				min=i;
 			}
 		}
 		return min;
-		
 	}
 	
+	//retourne le score moyen d'un cycle
 	public double getCycleScore(double[][][] scores, int cycle) {
-		double[] cycleScores=getCycleScores(scores, cycle);
+		double[] cycleScores=getCycleRanks(scores, cycle);
 		double score=0.;
 		for(int i=0;i<cycleScores.length;++i) {
-			score+=cycleScores[i];
+			double s=cycleScores[i]-(double)nbCycle/2;
+			score+=(s*s);
 		}
 		score=score/cycleScores.length;
 		return score;
 	}
-	
-	public double[] getCycleScores(double[][][] scores, int cycle){
+	//retourne un tableau avec les classements d'un cycle
+	public double[] getCycleRanks(double[][][] scores, int cycle){
 		int nbScores=nbSteps*(nbIndiv.size()+1);
 		double[] cycleScores=new double[nbScores];
 		int k=0;
@@ -189,7 +201,8 @@ public class Gillespie {
 		return cycleScores;		
 	}
 	
-	public double[][][] getScores(){
+	//retourne un tableau avec tous les classements de chaque cycle
+	public double[][][] getAllRanks(){
 		double[][][] scores=new double[nbSteps][nbIndiv.size()+1][nbCycle];
 		for(int i=0;i<nbSteps;++i) {
 			for(int j=0;j<=nbIndiv.size();++j) {
@@ -200,7 +213,7 @@ public class Gillespie {
 	}
 	
 	
-	
+	//retourne un tableau avec les cycles classés pour une etape et un compartment donnés
 	public double[] getRanks(int step, int compartment) {
 		double[][][] r=getResult();
 		double[] tab=new double[nbCycle];
@@ -219,6 +232,7 @@ public class Gillespie {
 		return ranks;
 	}
 	
+	//retourne un tableau avec une colonne index pour conserver l'identification des cycles lors du tri
 	public double[][] prepareToSort(double[] t){
 		double[][] p=new double[2][t.length];
 		for(int i=0;i<t.length;++i) {
@@ -228,6 +242,7 @@ public class Gillespie {
 		return p;
 	}
 	
+	//tri fusion
 	public double[][] sort(double[] tab) {
 		double[][] t=prepareToSort(tab);
 		if(t.length>0) {
@@ -236,6 +251,7 @@ public class Gillespie {
 		return t;
 	}
 	
+	//étape de tri fusion
 	public void sort(double[][] t, int start, int end) {
 		if(start != end) {
 			int mid=(start+end)/2;
@@ -245,6 +261,7 @@ public class Gillespie {
 		}
 	}
 	
+	//fusion
 	public void merge(double[][] t, int start, int mid, int end) {
 		int start2=mid+1;
 		double[][] tab1=new double[2][mid-start+1];
