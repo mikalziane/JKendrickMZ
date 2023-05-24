@@ -69,8 +69,8 @@ public class Gillespie {
 	}
 	
 	//retourne la valeur R=somme des taux des evenements seloj la population initiale
-	public double getR() {
-		double[] rates=getRates(getInitialPopulation());
+	public double getR(double[] population) {
+		double[] rates=getRates(population);
 		double r=0;
 		for(int i=0;i<rates.length;++i) {
 			r+=rates[i];
@@ -79,10 +79,11 @@ public class Gillespie {
 	}
 	//applique l'algorithme de Gillespie(et range les resultats dans le tableau result)
 	public void solve(){
-		double r=getR();
+		double r=0.;
 		int timeRow=nbIndiv.size();
 		for(int i=0;i<nbCycle;++i) {
 			for(int j=1;j<nbSteps;++j) {
+				r=getR(result[i][j-1]);
 				double rand1=random.nextDouble();
 				double tau=1/r*Math.log(1/rand1);
 				GeneralizedRW rw=new GeneralizedRW(getRates(result[i][j-1]),0.0000001);

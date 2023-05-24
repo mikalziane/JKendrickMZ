@@ -16,12 +16,7 @@ public class Infection extends Event{
 		assert indexS>=0 && indexI>=0;
 		double nbS=population[indexS];
 		double nbI=population[indexI];
-		if(nbS>nbI) {
-			r=super.getRate()*nbI;
-		}
-		else {
-			r=super.getRate()*nbS;
-		}
+		r=getRate()*nbI*nbS;
 		return r;
 	}
 

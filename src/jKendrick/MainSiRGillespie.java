@@ -18,11 +18,11 @@ public class MainSiRGillespie {
 		nbIndiv.put("I", 1);
 		nbIndiv.put("R", 0);
 		int nbCycle=100;
-		int nbStep=500;
-		IEvent Infect=new Infection(6.0);
-		IEvent Recov=new Recovery(0.6);
-		IEvent EndImmu=new EndOfImmunity(0.1);
-		IEvent[] events= {Infect,Recov,EndImmu}; 
+		int nbStep=1000;
+		IEvent Infect=new Infection(1.4247);
+		IEvent Recov=new Recovery(0.14286);
+		//IEvent EndImmu=new EndOfImmunity(0.1);
+		IEvent[] events= {Infect,Recov}; 
 		Gillespie g=new Gillespie(nbCycle, nbStep, nbIndiv, events);
 		g.solve();
 		double[][][] result=g.getResult();
