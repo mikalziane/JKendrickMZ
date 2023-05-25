@@ -14,7 +14,7 @@ public class MainSiRGillespie {
 
 	public static void main(String[] args) {
 		Map<String, Integer> nbIndiv=new HashMap<>();
-		nbIndiv.put("S", 99);
+		nbIndiv.put("S", 999);
 		nbIndiv.put("I", 1);
 		nbIndiv.put("R", 0);
 		int nbCycle=100;
@@ -28,7 +28,7 @@ public class MainSiRGillespie {
 		double[][][] result=g.getResult();
 		double[][] average=g.getAverage();
 		
-		for(int a=0;a<result.length;++a) {
+		/*for(int a=0;a<result.length;++a) {
 			System.out.println("Cycle "+a);
 			for(int b=0;b<result[0].length;++b) {
 				for(int c=0;c<result[0][0].length;++c) {
@@ -36,7 +36,7 @@ public class MainSiRGillespie {
 				}
 				System.out.println(" ");
 			}
-		}
+		}*/
 		
 		//display of averages values
 		System.out.println("Moyenne:");
@@ -60,17 +60,17 @@ public class MainSiRGillespie {
 			e.printStackTrace();
 		}*/
 		
-		/*try {
+		try {
 			v.stochasticChart(result, average, labels, "Test SIR", "population", "temps");
 			} catch (IOException e) {
 				e.printStackTrace();
-			}*/
+			}
 			
-		try {
+		/*try {
 			v.stochasticChart(result, medianPath, labels, "Test SIR", "temps","population");
 			} catch (IOException e) {
 				e.printStackTrace();
-			}
+			}*/
 			
 		
 	}

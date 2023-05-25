@@ -81,7 +81,7 @@ public class Visualization {
 		chart.getStyler().setMarkerSize(1);
 		//pour chaque cycle
 		
-		for(int i=0;i<results.length;++i) {
+		/*for(int i=0;i<results.length;++i) {
 			//pour chaque compartiment
 			for(int j=0;j<(results[0][0].length)-1;++j) {
 				
@@ -98,7 +98,7 @@ public class Visualization {
 				stochasticSeries.setMarker(SeriesMarkers.CIRCLE);
 				
 			}
-		}
+		}*/
 		double[] xDataAverage=new double[average.length];
 		double[][] yDataAverage=new double[(average[0].length)-1][average.length];
 		for(int i=0;i<(average[0].length)-1;++i) {

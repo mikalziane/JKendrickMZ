@@ -17,6 +17,8 @@ public class Gillespie {
 	private String[] compartments;
 	private IEvent[] events;
 	private Random random;
+	private final static double minRand=0.0000001;
+	
 	
 	public Gillespie(int nbCycle, int nbStep, Map<String,Integer>nbIndiv, IEvent[] events) {
 		assert nbCycle>0;
@@ -84,8 +86,17 @@ public class Gillespie {
 		for(int i=0;i<nbCycle;++i) {
 			for(int j=1;j<nbSteps;++j) {
 				r=getR(result[i][j-1]);
+				System.out.println("R :"+r);
+				if(r==0) {
+					r=100;
+				}
 				double rand1=random.nextDouble();
+				if(rand1<minRand) {
+					rand1=minRand;
+				}
 				double tau=1/r*Math.log(1/rand1);
+				
+				System.out.println("tau : "+tau);
 				GeneralizedRW rw=new GeneralizedRW(getRates(result[i][j-1]),0.0000001);
 				int currentEvent=rw.getEvent();
 				if(currentEvent!=-1) {
@@ -95,6 +106,7 @@ public class Gillespie {
 					result[i][j]=result[i][j-1];
 				}
 				result[i][j][timeRow]=result[i][j-1][timeRow]+tau;
+				System.out.println("time : "+result[i][j][timeRow]);
 			}
 		}
 	}
