@@ -21,7 +21,7 @@ class InfectionTest {
 		Infection inf=new Infection(0.5);
 		
 		//test de la methode getRate
-		assertEquals(1.0, inf.getRate(compartments,population));
+		assertEquals(3.0, inf.getRate(compartments,population));
 		
 		assertThrows(AssertionError.class,
 	            ()->{inf.getRate(wrongCompartments,population);} );

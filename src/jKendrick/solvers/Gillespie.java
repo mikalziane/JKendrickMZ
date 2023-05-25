@@ -17,7 +17,7 @@ public class Gillespie {
 	private String[] compartments;
 	private IEvent[] events;
 	private Random random;
-	private final static double minRand=0.0000001;
+	private final static double MINRAND=0.0000001;
 	
 	
 	public Gillespie(int nbCycle, int nbStep, Map<String,Integer>nbIndiv, IEvent[] events) {
@@ -70,7 +70,7 @@ public class Gillespie {
 		return pop;
 	}
 	
-	//retourne la valeur R=somme des taux des evenements seloj la population initiale
+	//retourne la valeur R=somme des taux des evenements selon la population initiale
 	public double getR(double[] population) {
 		double[] rates=getRates(population);
 		double r=0;
@@ -85,14 +85,17 @@ public class Gillespie {
 		int timeRow=nbIndiv.size();
 		for(int i=0;i<nbCycle;++i) {
 			for(int j=1;j<nbSteps;++j) {
+				for(int l=0;l<nbIndiv.size();++l) {
+					result[i][j][l]=getValue(i, j-1, l);
+				}
 				r=getR(result[i][j-1]);
 				System.out.println("R :"+r);
 				if(r==0) {
 					r=100;
 				}
 				double rand1=random.nextDouble();
-				if(rand1<minRand) {
-					rand1=minRand;
+				if(rand1<MINRAND) {
+					rand1=MINRAND;
 				}
 				double tau=1/r*Math.log(1/rand1);
 				

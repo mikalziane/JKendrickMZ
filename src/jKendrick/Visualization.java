@@ -81,7 +81,7 @@ public class Visualization {
 		chart.getStyler().setMarkerSize(1);
 		//pour chaque cycle
 		
-		/*for(int i=0;i<results.length;++i) {
+		for(int i=0;i<results.length;++i) {
 			//pour chaque compartiment
 			for(int j=0;j<(results[0][0].length)-1;++j) {
 				
@@ -93,12 +93,13 @@ public class Visualization {
 				String serieName=new String(seriesNames[j]+"-"+i);
 				
 				XYSeries stochasticSeries =chart.addSeries(serieName,xData[i], yData[i][j]);
-				stochasticSeries.setLineColor(Color.GRAY);
-				stochasticSeries.setMarkerColor(Color.gray);
+				stochasticSeries.setLineColor(new Color(0, 0, 0, 10));
+				stochasticSeries.setMarkerColor(new Color(0, 0, 0, 10));
 				stochasticSeries.setMarker(SeriesMarkers.CIRCLE);
+				stochasticSeries.setShowInLegend(false);
 				
 			}
-		}*/
+		}
 		double[] xDataAverage=new double[average.length];
 		double[][] yDataAverage=new double[(average[0].length)-1][average.length];
 		for(int i=0;i<(average[0].length)-1;++i) {
@@ -131,6 +132,73 @@ public class Visualization {
 					 }
 				});
 		
+		
+	}
+	
+	public void stochasticChart(double step,double[][][] results, double[][] average, String[] seriesNames,String title, String xAxis, String yAxis)throws IOException  {
+		double[] xData=new double[results[0].length];
+		double[][][] yData=new double[results.length][results[0][0].length][results[0].length];
+		final XYChart chart = new XYChartBuilder().width(500).height(400).title(title).xAxisTitle(xAxis).yAxisTitle(yAxis).build();
+		chart.getStyler().setLegendPosition(LegendPosition.OutsideE);
+		chart.getStyler().setDefaultSeriesRenderStyle(XYSeriesRenderStyle.Line);
+		chart.getStyler().setMarkerSize(1);
+		
+		
+		for(int k=0;k<results[0].length;++k) {
+			xData[k]=step*k;
+		}
+		
+		for(int i=0;i<results.length;++i) {
+			//pour chaque compartiment
+			for(int j=0;j<(results[0][0].length);++j) {
+				
+				for(int k=0;k<results[0].length;++k) {
+					
+					yData[i][j][k]=results[i][k][j];
+					
+				}
+				String serieName=new String(seriesNames[j]+"-"+i);
+				
+				XYSeries stochasticSeries =chart.addSeries(serieName,xData, yData[i][j]);
+				stochasticSeries.setLineColor(new Color(0, 0, 0, 10));
+				stochasticSeries.setMarkerColor(new Color(0, 0, 0, 10));
+				stochasticSeries.setMarker(SeriesMarkers.CIRCLE);
+				stochasticSeries.setShowInLegend(false);
+				
+				
+				
+			}
+		}
+		
+		double[][] yDataAverage=new double[average[0].length][average.length];
+		for(int i=0;i<average[0].length;++i) {
+			for(int j=0;j<average.length;++j) {
+				
+				yDataAverage[i][j]=average[j][i];
+			}
+			chart.addSeries(seriesNames[i], xData, yDataAverage[i]);
+			
+		}
+		
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+
+			@Override
+			public void run() {
+
+			// Create and set up the window.
+			JFrame frame = new JFrame("Stochastic model");
+			frame.setLayout(new BorderLayout());
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+			// chart
+		    JPanel chartPanel = new XChartPanel<XYChart>(chart);
+			frame.add(chartPanel, BorderLayout.CENTER);
+
+			// Display the window.
+			frame.pack();
+			frame.setVisible(true);
+					 }
+				});
 		
 	}
 
