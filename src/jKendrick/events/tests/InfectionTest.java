@@ -14,14 +14,15 @@ class InfectionTest {
 		String[] compartments= {"S","I","R"};
 		String[] wrongCompartments= {"A","S","Z"};
 		String[] emptyCompartments= {};
-		double[] population= {2.,3.,4.};
-		double[] smallPopulation= {1.,2.};
-		double[] noSpopulation= {0.,3.,4.};
-		double[] noIpopulation= {2.,0.,4.};
-		Infection inf=new Infection(0.5);
+		double[] population= {2.0,3.0,4.0};
+		double[] smallPopulation= {1.0,2.0};
+		double[] noSpopulation= {0.0,3.0,4.0};
+		double[] noIpopulation= {2.0,0.0,4.0};
+		Infection inf=new Infection(1.8);
+		
 		
 		//test de la methode getRate
-		assertEquals(3.0, inf.getRate(compartments,population));
+		assertEquals(1.2, inf.getRate(compartments,population));
 		
 		assertThrows(AssertionError.class,
 	            ()->{inf.getRate(wrongCompartments,population);} );
