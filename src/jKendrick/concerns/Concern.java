@@ -11,11 +11,12 @@ public class Concern {
 	private String[][] transitionRates;
 	
 	public Concern(String compartments, String parametersNames) {
+		assert compartments.length()>0;
 		compartmentNames = compartments.split(" ");
 		String[] param=parametersNames.split(" ");
 		parameters=new HashMap<>();
 		for(int i=0;i<param.length;++i) {
-			parameters.put(param[i], null);
+			parameters.put(param[i], 0.);
 		}
 		transitionRates=new String[compartmentNames.length][compartmentNames.length];
 	}
