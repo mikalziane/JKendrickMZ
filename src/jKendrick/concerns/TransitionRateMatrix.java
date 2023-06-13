@@ -3,6 +3,8 @@ package jKendrick.concerns;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import jKendrick.scenario.Scenario;
+
 public class TransitionRateMatrix {
 	private HashMap<XY,Rate> rates;
 	private ArrayList<String> compartments;
@@ -24,19 +26,19 @@ public class TransitionRateMatrix {
 		}
 	}
 	
-	public double getRate(String x, String y) {
+	public double getRate(String x, String y, Scenario s) {
 		assert (compartments.contains(x) && compartments.contains(y));
 		double rate=0.;
 		XY xy=new XY(x,y);
 		if(x.equals(y)) {
 			for(int i=0;i<compartments.size();++i) {
 				if(i!=compartments.indexOf(x)) {
-					rate+=getRate(x,compartments.get(i));
+					rate+=getRate(x,compartments.get(i),s);
 				}
 			}
 		}
 		else if (rates.containsKey(xy)) {
-			rate=rates.get(xy).getValue();
+			rate=rates.get(xy).getRate(s);
 		}
 		return rate;
 	}
@@ -49,6 +51,7 @@ public class TransitionRateMatrix {
 			this.x=x;
 			this.y=y;
 		}
+	
 	}
 
 }

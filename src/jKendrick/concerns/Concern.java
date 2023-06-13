@@ -1,7 +1,8 @@
 package jKendrick.concerns;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
 
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,6 +30,10 @@ public class Concern {
 		return parameters.get(param);
 	}
 	
+	public Map<String, Double> getParameters() {
+		return parameters;
+	}
+	
 	public int indexOfCompartment(String compartment) {
 		int index=-1;
 		for(int i=0;i<compartmentNames.length;++i) {
@@ -44,6 +49,14 @@ public class Concern {
 		int toIndex=indexOfCompartment(to);
 		assert (fromIndex>=0 && toIndex >=0);
 		transitionRates[fromIndex][toIndex]=parameter;
+	}
+	
+	public ArrayList<String> getCompartments() {
+		ArrayList<String> list = new ArrayList<String>();
+	     for(String c:compartmentNames) {
+	        list.add(c);
+	     }
+	     return list;
 	}
 	
 	@Override
