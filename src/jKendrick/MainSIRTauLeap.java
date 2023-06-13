@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import jKendrick.concerns.Concern;
 import jKendrick.events.IEvent;
 import jKendrick.events.Infection;
 import jKendrick.events.Recovery;
@@ -12,6 +13,12 @@ import jKendrick.solvers.TauLeap;
 public class MainSIRTauLeap {
 
 	public static void main(String[] args) {
+		Concern SIR=new Concern("S I R","lambda gamma");
+		SIR.setTransitionRate("S", "I", "lambda");
+		SIR.setTransitionRate("I", "R", "gamma");
+		
+		
+		
 		Map<String, Integer> nbIndiv=new HashMap<>();
 		nbIndiv.put("S", 999);
 		nbIndiv.put("I", 1);
