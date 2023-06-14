@@ -1,10 +1,10 @@
 package jKendrick.concerns;
 
-import jKendrick.IRate;
+
 import jKendrick.scenario.Scenario;
 
 
-public class Rate implements IRate {
+public class Rate implements IRates {
 	private String value;
 	public Rate(String value) {
 		this.value=value;
@@ -15,11 +15,7 @@ public class Rate implements IRate {
 		return s.getParam(value);
 	}
 
-	@Override
-	public double eval(double t, double[] model) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
 
 	
 	
