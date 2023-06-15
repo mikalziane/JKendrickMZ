@@ -1,45 +1,42 @@
 package jKendrick.solvers;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
 import org.apache.commons.math3.distribution.PoissonDistribution;
 
+import jKendrick.concerns.IRates;
+import jKendrick.concerns.TransitionRateMatrix.XY;
 import jKendrick.events.IEvent;
+import jKendrick.scenario.Scenario;
 import jKendrick.tools.PoissonGenerator;
 
 public class TauLeap {
 	private double step;
 	private double[][][] result;
-	private IEvent[] events;
 	private int nbCycles;
 	private int nbSteps;
-	private Map<String,Integer> nbIndiv;
-	private String[] compartments;
 	private PoissonGenerator poisson;
+	private Scenario scenario;
 	
 	
-	public TauLeap(double step, IEvent[] events, int nbCycles, int nbSteps, Map<String,Integer> nbIndiv) {
+	public TauLeap(double step, int nbCycles, int nbSteps, Scenario scenario) {
 		this.step=step;
-		this.events=events;
 		this.nbCycles=nbCycles;
 		this.nbSteps=nbSteps;
-		this.nbIndiv=nbIndiv;
-		this.compartments=nbIndiv.keySet().toArray((new String[nbIndiv.size()]));
-		initValues();
 		poisson=new PoissonGenerator();
-		
+		this.scenario=scenario;
 	}
 	
 	public void initValues() {
-		double result[][][]=new double[nbCycles][nbSteps][nbIndiv.size()];
-		int j=0;
+		List<String> population=scenario.getCompartments();
+		double result[][][]=new double[nbCycles][nbSteps][scenario.getNbCompartments()];
 		for(int i=0;i<nbCycles;++i) {
-			for(Map.Entry<String, Integer> entry : nbIndiv.entrySet()) {
-				result[i][0][j]=(double)entry.getValue();
-				++j;
+			for(int j=0;j<population.size();++j) {
+				result[i][0][j]=scenario.getParam(population.get(j));	
 			}
-			j=0;
 		}
 		this.result=result;
 	}
@@ -55,15 +52,18 @@ public class TauLeap {
 		int nbAction=0;
 		for(int i=0;i<nbCycles;++i) {
 			for(int j=1;j<nbSteps;++j) {
-				for(int l=0;l<nbIndiv.size();++l) {
+				for(int l=0;l<scenario.getNbCompartments();++l) {
 					result[i][j][l]=getValue(i, j-1, l);
 				}
+				String[][] events=scenario.getTransitions().getPossibleEvents();
 				for(int k=0;k<events.length;++k) {
-					rate=events[k].getRate(compartments, result[i][j-1]);
-					if(rate!=0) {
+					rate=scenario.getTransitions().getRate(events[k][0],events[k][1],scenario);
+					if(rate!=0.) {
 						nbAction=poisson.poissonSample((rate)*step);
 						for(int m=0;m<nbAction;++m) {
-							result[i][j]=events[k].action(compartments, result[i][j]);
+							scenario.transition(events[k][0],events[k][1]);
+							result[i][j][scenario.indexOf(events[k][0])]--;
+							result[i][j][scenario.indexOf(events[k][1])]++;	
 						}
 					}
 				}
