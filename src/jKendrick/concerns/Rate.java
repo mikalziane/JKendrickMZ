@@ -12,7 +12,8 @@ public class Rate implements IRates {
 	
 	@Override
 	public double getRate(Scenario s) {
-		return s.getParam(value);
+		double rate=s.getParam(value);
+		return rate;
 	}
 
 	

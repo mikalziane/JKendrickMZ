@@ -1,15 +1,7 @@
 package jKendrick.solvers;
 
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
-
-
-import org.apache.commons.math3.distribution.PoissonDistribution;
-
-import jKendrick.concerns.IRates;
-import jKendrick.concerns.TransitionRateMatrix.XY;
-import jKendrick.events.IEvent;
 import jKendrick.scenario.Scenario;
 import jKendrick.tools.PoissonGenerator;
 
@@ -28,6 +20,7 @@ public class TauLeap {
 		this.nbSteps=nbSteps;
 		poisson=new PoissonGenerator();
 		this.scenario=scenario;
+		initValues();
 	}
 	
 	public void initValues() {
@@ -73,10 +66,10 @@ public class TauLeap {
 	
 	//retourne une copie du tableau de resultat
 		public double[][][] getResult(){
-			double r[][][]=new double[nbCycles][nbSteps][nbIndiv.size()];
+			double r[][][]=new double[nbCycles][nbSteps][scenario.getNbCompartments()];
 			for(int i=0;i<nbCycles;++i) {
 				for(int j=0;j<nbSteps;++j) {
-					for(int k=0;k<nbIndiv.size();++k) {
+					for(int k=0;k<scenario.getNbCompartments();++k) {
 						r[i][j][k]=result[i][j][k];
 					}
 				}
@@ -86,7 +79,7 @@ public class TauLeap {
 		
 		//retourne un tableau qui contient le cycle median
 		public double[][] getMedianPath(){
-			double[][] median=new double[nbSteps][nbIndiv.size()];
+			double[][] median=new double[nbSteps][scenario.getNbCompartments()];
 			double[][][] r=getResult();
 			int cycle=getMedCycle();
 			median=r[cycle];
@@ -118,11 +111,11 @@ public class TauLeap {
 		}
 		//retourne un tableau avec les classements d'un cycle
 		public double[] getCycleRanks(double[][][] scores, int cycle){
-			int nbScores=nbSteps*(nbIndiv.size());
+			int nbScores=nbSteps*(scenario.getNbCompartments());
 			double[] cycleScores=new double[nbScores];
 			int k=0;
 			for(int i=0;i<nbSteps;++i) {
-				for(int j=0;j<nbIndiv.size();++j) {
+				for(int j=0;j<scenario.getNbCompartments();++j) {
 					cycleScores[k]=scores[i][j][cycle];
 				}
 			}
@@ -131,9 +124,9 @@ public class TauLeap {
 		
 		//retourne un tableau avec tous les classements de chaque cycle
 		public double[][][] getAllRanks(){
-			double[][][] scores=new double[nbSteps][nbIndiv.size()][nbCycles];
+			double[][][] scores=new double[nbSteps][scenario.getNbCompartments()][nbCycles];
 			for(int i=0;i<nbSteps;++i) {
-				for(int j=0;j<nbIndiv.size();++j) {
+				for(int j=0;j<scenario.getNbCompartments();++j) {
 					scores[i][j]=getRanks(i, j);
 				}
 			}

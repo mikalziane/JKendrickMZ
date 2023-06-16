@@ -50,10 +50,13 @@ public class TransitionRateMatrix {
 		int i=0;
 		for(Map.Entry<XY, IRates> entry : rates.entrySet()) {
 			events[i][0]=entry.getKey().getX();
-			events[i][1]=entry.getKey().getX();
+			events[i][1]=entry.getKey().getY();
+			++i;
 		}
 		return events;
 	}
+	
+	
 	
 	
 	private static class XY{
@@ -68,6 +71,20 @@ public class TransitionRateMatrix {
 		}
 		public String getY() {
 			return y;
+		}
+		
+		@Override
+		public boolean equals(Object o) {
+			if (o == null || !(o instanceof XY))
+				return false;
+			else {
+				XY xy = (XY) o;
+				return (x.equals(xy.getX()) && y.equals(xy.getY()));
+			}
+		}
+		
+		public int hashCode() { 
+			return x.charAt(0) ^ y.charAt(0); 
 		}
 	
 	}
