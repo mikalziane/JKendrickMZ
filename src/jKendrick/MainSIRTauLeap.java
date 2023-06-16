@@ -3,15 +3,12 @@ package jKendrick;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
+
 
 import jKendrick.concerns.Concern;
 import jKendrick.scenario.Scenario;
 import jKendrick.concerns.DivRate;
-import jKendrick.events.IEvent;
-import jKendrick.events.Infection;
-import jKendrick.events.Recovery;
+
 import jKendrick.solvers.TauLeap;
 import jKendrick.concerns.IRates;
 import jKendrick.concerns.MulRate;
