@@ -60,6 +60,24 @@ public class Scenario {
 		return concerns.get(0).getCompartments();
 	}
 	
+	public double getN() {
+		double n=0.;
+		for(int i=0;i<getNbCompartments();++i) {
+			n+=getParam(compartments.get(i));
+		}
+		return n;
+	}
+	
+	public double[] getProportions() {
+		double[] proportion=new double[getNbCompartments()];
+		double n=getN();
+		assert n>0.;
+		for(int i=0;i<getNbCompartments();++i) {
+			proportion[i]=getParam(compartments.get(i))/n;
+		}
+		return proportion;
+	}
+	
 	
 
 }
