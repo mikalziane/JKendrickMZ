@@ -41,9 +41,11 @@ public class TauLeap {
 	}
 	
 	public void solve() {
+		scenario.saveInitialParams();
 		double rate=0.;
 		int nbAction=0;
 		for(int i=0;i<nbCycles;++i) {
+			scenario.resetParams();
 			for(int j=1;j<nbSteps;++j) {
 				for(int l=0;l<scenario.getNbCompartments();++l) {
 					result[i][j][l]=getValue(i, j-1, l);
@@ -76,6 +78,7 @@ public class TauLeap {
 			}
 			return r;
 		}
+		
 		
 		//retourne un tableau qui contient le cycle median
 		public double[][] getMedianPath(){

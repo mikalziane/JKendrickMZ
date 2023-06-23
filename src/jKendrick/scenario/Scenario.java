@@ -14,15 +14,25 @@ import jKendrick.concerns.TransitionRateMatrix;
 public class Scenario implements FirstOrderDifferentialEquations{
 	private List<Concern> concerns;
 	private Map<String,Double> parameters;
+	private Map<String,Double> initialParameters;
 	private List<String> compartments;
 	
 	public Scenario(List<Concern> concerns) {
 		this.concerns=concerns;
-		parameters=new HashMap<>();
+		parameters=new HashMap<String,Double>();
+		initialParameters=new HashMap<String,Double>();
 		for (int i = 0; i < concerns.size(); ++i) {
 			parameters.putAll(concerns.get(i).getParameters());
 		}
 		this.compartments=initCompartments();
+	}
+	
+	public void saveInitialParams() {
+		initialParameters.putAll(parameters);
+	}
+	
+	public void resetParams() {
+		parameters.putAll(initialParameters);
 	}
 	
 	public List<String> getCompartments(){
