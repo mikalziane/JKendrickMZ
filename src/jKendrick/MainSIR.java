@@ -1,19 +1,24 @@
 package jKendrick;
 
-import java.io.IOException;
+
+import jKendrick.scenario.Model;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import jKendrick.concerns.Concern;
+import jKendrick.scenario.Scenario;
+import jKendrick.scenario.Simulation;
 import jKendrick.concerns.DivRate;
+
+import jKendrick.solvers.RK4Solver;
+import jKendrick.solvers.TauLeap;
 import jKendrick.concerns.IRates;
 import jKendrick.concerns.MulRate;
 import jKendrick.concerns.Rate;
 import jKendrick.concerns.SumRate;
-import jKendrick.scenario.Scenario;
-import jKendrick.solvers.RK4Solver;
+public class MainSIR {
 
-public class MainSIRDeterminist {
 	public static void main(String[] args) {
 		Concern SIR=new Concern("S I R","beta gamma");
 		IRates beta=new Rate("beta");
@@ -42,23 +47,24 @@ public class MainSIRDeterminist {
 		SIRscenario.setParameter("beta", 1.4247);
 		SIRscenario.setParameter("gamma", 0.14286);
 		
+		int nbCycle=100;
+		double end=70.;
 		double step=1;
-		double last=70.;
 		
-		RK4Solver solver=new RK4Solver(step);
+		Model SIRModel=new Model(SIRscenario,step, end, nbCycle);
+		TauLeap tl=new TauLeap(SIRModel);
+		RK4Solver rksolver=new RK4Solver(SIRModel);
+		Visualization v=new Visualization();
+		String title="SIR";
 		
-		double[][] result=solver.solve(step, last, SIRscenario);
+		Simulation tauLeapSim=new Simulation(tl, v, title);
+		Simulation rk4Sim=new Simulation(rksolver, v, title);
 		
-		
-		Visualization viz = new Visualization ();
-		
-		try {
-			viz.deterministicChart(result, step, last, SIRscenario.getCompartments().toArray(new String[SIRscenario.getNbCompartments()]), "SIR Deterministic", "time", "population");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		tauLeapSim.simulate();
+		rk4Sim.simulate();
 		
 		
+
 	}
-	
+
 }

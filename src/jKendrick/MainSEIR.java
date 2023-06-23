@@ -3,72 +3,81 @@ package jKendrick;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import jKendrick.concerns.Concern;
+import jKendrick.concerns.DivRate;
+import jKendrick.concerns.IRates;
+import jKendrick.concerns.MulRate;
+import jKendrick.concerns.Rate;
+import jKendrick.concerns.SumRate;
 import jKendrick.models.SEIR;
+import jKendrick.scenario.Model;
+import jKendrick.scenario.Scenario;
+import jKendrick.scenario.Simulation;
 import jKendrick.solvers.RK4Solver;
+import jKendrick.solvers.TauLeap;
 
 
 public class MainSEIR {
 	public static void main(String[] args) {
+		Concern SEIR=new Concern("S E I R ","beta gamma sigma");
+		IRates S=new Rate("S");
+		IRates E=new Rate("E");
+		IRates I=new Rate("I");
+		IRates R=new Rate("R");
+		IRates N=new SumRate(new SumRate(new SumRate(R,I),E),S);
+		IRates beta=new Rate("beta");
+		IRates gamma=new Rate("gamma");
+		IRates sigma=new Rate("sigma");
+		IRates lambda=new DivRate(new MulRate(beta, new MulRate(I,S)), N) ;
+		IRates sigmaE=new MulRate(sigma, E);
+		IRates gammaI=new MulRate(gamma, I);
+		
+		SEIR.setTransitionRate("S", "E", lambda);
+		SEIR.setTransitionRate("E", "I", sigmaE);
+		SEIR.setTransitionRate("I", "R", gammaI);
+		
+		List<Concern> concerns=new ArrayList<Concern>();
+		concerns.add(SEIR);
+		
+		Scenario SEIRscenario=new Scenario(concerns);
+		SEIRscenario.setParameter("S", 1000.);
+		SEIRscenario.setParameter("E", 1.);
+		SEIRscenario.setParameter("I", 1.);
+		SEIRscenario.setParameter("R", 898.);
+		
+		SEIRscenario.setParameter("beta", 1.4247);
+		SEIRscenario.setParameter("gamma", 0.14286);
+		SEIRscenario.setParameter("sigma", 0.07143);
+		
+		
 		double step = 1;
-		double last = 21900.;
+		double last = 70.;
+		int nbCycles=100;
 		
-		String[] seriesNames = {"S", "E", "I", "R"};
-		String title = "SEIR Model";
-		String xAxis = "Time (days)";
-		String yAxis = "Proportion of individuals";
+		Model SEIRModel=new Model(SEIRscenario, step, last, nbCycles);
+		
+		TauLeap tl=new TauLeap(SEIRModel);
+		RK4Solver rksolver=new RK4Solver(SEIRModel);
+		Visualization v=new Visualization();
+		String title="SEIR";
+		
+		Simulation tauLeapSim=new Simulation(tl, v, title);
+		Simulation rk4Sim=new Simulation(rksolver, v, title);
+		System.out.println("ready");
+		
+		rk4Sim.simulate();
+		tauLeapSim.simulate();
 		
 		
-		double s0 = 0.1; // initial proportion of Ss
-		double e0 = 0.0001; // initial proportion of Es
-		double i0 = 0.0001; // initial proportion of Is
-		double r0 = 0.898; // initial proportion of Rs
-		double[] arguments ={ s0, e0, i0, r0};
+		System.out.println("done");
 		
-		//final double sommeProportionCompartiments = s0 + e0 + i0 + r0;
 		
-		//assert sommeProportionCompartiments == 1 : "La somme des proportions des populations au sein des compartiments vaut 1" ;
-			
-		
-		double [][] results = 	integratorExample(step, last, arguments);
-		Visualization viz = new Visualization();
-		
-		try {
-			viz.xchartExample(results, step, last, seriesNames, title, xAxis, yAxis);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
-
-	private static double[][] integratorExample(double step, double last,
-			double[] args) {
-		RK4Solver rk4 = new RK4Solver(step);
-		SEIR ode = new SEIR(1.4247, 0.14286, 0.0000391, 0.07143);
+	
+	// ajouter démographie : mu=0.0000391;
 		
-		int nbArgs = args.length;
-		int duration = (int) Math.ceil(last / step);
-		double[][] results = new double[nbArgs][duration];
-		double t = 0.0;
-		int i = 0;
-		
-		final double THRESHOLD = 0.001;
-		
-		do {
-			System.out.format("Conditions at time %.1f:  S:%.1f E:%.1f I:%.1f R:%.1f%n",
-					t, args[0],  args[1], args[2], args[3]);
-			i = (int)(t/step);
-			
-			double sommeCompartiments = (args[0] + args[1] + args[2] + args[3]);
-			assert (Math.abs(1 - sommeCompartiments) < THRESHOLD)  : "La somme des proportions des populations au sein des compartiments vaut bien 1.";
-							
-			for(int j = 0; j< nbArgs; ++j)
-				results[j][i]= args[j];
-			rk4.integrate(ode, t, args, t + step, args);
-			t += step;
-			++i;
-			
-		} while (t <last);	
-		return results;
-	}
 	
 }

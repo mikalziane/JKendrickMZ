@@ -2,24 +2,29 @@ package jKendrick.solvers;
 
 
 import java.util.List;
+
+import jKendrick.scenario.ISolver;
+import jKendrick.scenario.Model;
 import jKendrick.scenario.Scenario;
 import jKendrick.tools.PoissonGenerator;
 
-public class TauLeap {
+public class TauLeap implements ISolver{
 	private double step;
 	private double[][][] result;
 	private int nbCycles;
 	private int nbSteps;
 	private PoissonGenerator poisson;
 	private Scenario scenario;
+	private double end;
 	
 	
-	public TauLeap(double step, int nbCycles, int nbSteps, Scenario scenario) {
-		this.step=step;
-		this.nbCycles=nbCycles;
-		this.nbSteps=nbSteps;
+	public TauLeap(Model model) {
+		this.step=model.getStep();
+		this.nbCycles=model.getNbCycles();
+		this.nbSteps=(int) Math.ceil(model.getEnd()/step);
+		this.end=model.getEnd();
 		poisson=new PoissonGenerator();
-		this.scenario=scenario;
+		this.scenario=model.getScenario();
 		initValues();
 	}
 	
@@ -40,6 +45,7 @@ public class TauLeap {
 		return result[cycle][step][compartment];
 	}
 	
+	@Override
 	public void solve() {
 		scenario.saveInitialParams();
 		double rate=0.;
@@ -64,9 +70,11 @@ public class TauLeap {
 				}
 			}
 		}
+		scenario.resetParams();
 	}
 	
 	//retourne une copie du tableau de resultat
+	@Override
 		public double[][][] getResult(){
 			double r[][][]=new double[nbCycles][nbSteps][scenario.getNbCompartments()];
 			for(int i=0;i<nbCycles;++i) {
@@ -81,6 +89,7 @@ public class TauLeap {
 		
 		
 		//retourne un tableau qui contient le cycle median
+	@Override
 		public double[][] getMedianPath(){
 			double[][] median=new double[nbSteps][scenario.getNbCompartments()];
 			double[][][] r=getResult();
@@ -211,6 +220,23 @@ public class TauLeap {
 				}
 			}
 		}
+
+		@Override
+		public String[] getLabels() {
+			return scenario.getCompartments().toArray(new String[scenario.getNbCompartments()]);
+		}
+
+		@Override
+		public double getEnd() {
+			return end;
+		}
+
+		@Override
+		public double getStep() {
+			return step;
+		}
+		
+		
 	
 	
 

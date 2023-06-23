@@ -1,64 +1,72 @@
 package jKendrick;
 
 
-import java.io.IOException;
 
-import jKendrick.models.SISModel;
+import java.util.ArrayList;
+import java.util.List;
+
+import jKendrick.concerns.Concern;
+import jKendrick.concerns.DivRate;
+import jKendrick.concerns.IRates;
+import jKendrick.concerns.MulRate;
+import jKendrick.concerns.Rate;
+import jKendrick.concerns.SumRate;
+
+import jKendrick.scenario.Model;
+import jKendrick.scenario.Scenario;
+import jKendrick.scenario.Simulation;
 import jKendrick.solvers.RK4Solver;
+import jKendrick.solvers.TauLeap;
 
 
 public class MainSIS {
 	public static void main(String[] args) {
+		Concern SI=new Concern("S I","beta gamma");
+		
+		IRates S=new Rate("S");
+		IRates I=new Rate("I");
+		IRates N=new SumRate(I,S);
+		IRates beta=new Rate("beta");
+		IRates gamma=new Rate("gamma");
+		IRates lambda=new DivRate(new MulRate(beta, new MulRate(I,S)), N) ;
+		IRates gammaI=new MulRate(gamma, I);
+		
+		SI.setTransitionRate("S", "I", lambda);
+		SI.setTransitionRate("I", "S", gammaI);
+		
+		List<Concern> concerns=new ArrayList<Concern>();
+		concerns.add(SI);
+		
+		Scenario SISscenario=new Scenario(concerns);
+		SISscenario.setParameter("S", 999.);
+		SISscenario.setParameter("I", 1.);
+		
+		SISscenario.setParameter("beta", 1.4247);
+		SISscenario.setParameter("gamma", 0.14286);
+		
+		
+		
 		double step = 1;
 		double last = 70.;
+		int nbCycle=100;
 		
-		String[] seriesNames = {"S", "I"};
-		String title = "SIS Model";
-		String xAxis = "Time (days)";
-		String yAxis = "Proportion of individuals";
+		Model SISModel=new Model(SISscenario,step, last, nbCycle);
+		TauLeap tl=new TauLeap(SISModel);
+		RK4Solver rksolver=new RK4Solver(SISModel);
+		Visualization v=new Visualization();
+		String title="SIS";
 		
-		double[] arguments ={ 0.999999, 0.000001};
-		double [][] results = 	integratorExample(step, last, arguments);
-		Visualization viz = new Visualization();
+		Simulation tauLeapSim=new Simulation(tl, v, title);
+		Simulation rk4Sim=new Simulation(rksolver, v, title);
+	
+		rk4Sim.simulate();
+		tauLeapSim.simulate();
 		
-		try {
-			viz.xchartExample(results, step, last, seriesNames, title, xAxis, yAxis);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		
+		
 	}
 
-	private static double[][] integratorExample(double step, double last,
-			double[] args) {
-		RK4Solver rk4 = new RK4Solver(step);
-		
-		SISModel ode = new SISModel(1.4247, 0.14286);
-		int nbArgs = args.length;
-		int duration = (int) Math.ceil(last / step);
-		double[][] results = new double[nbArgs][duration];
-		double t = 0.0;
-		int i = 0;
-		
-		final double THRESHOLD = 0.001;
-		
-		do {
-			
-			System.out.format("Conditions at time %.1f:  S:%.1f  I:%.1f.%n",
-					t, args[0],  args[1]);
-			i = (int)(t/step);
-			
-			double sommeCompartiments = (args[0] + args[1]);
-			assert (Math.abs(1 - sommeCompartiments) < THRESHOLD)  : "La somme des proportions des populations au sein des compartiments vaut bien 1.";
-			
-			for(int j = 0; j< nbArgs; ++j)
-				results[j][i]= args[j];
-			rk4.integrate(ode, t, args, t + step, args);
-			t += step;
-			++i;
-			
-		} while (t <last);	
-		return results;
-	}
+	
 
 	
 }
