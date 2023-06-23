@@ -68,6 +68,54 @@ public class Visualization {
 
 	}
 	
+	public void deterministicChart(double[][] results, double step, double last, String[] seriesNames, String title, String xAxis, String yAxis)
+			throws IOException {
+		double[] xData = new double[results.length];
+		double[][] yData = new double[results[0].length][results.length];
+
+		for (int k = 0; k < results[0].length; ++k) {	
+			for (int i = 0; i< (int) Math.ceil(last / step); ++i) {
+				xData[i]= i * step;
+				yData[k][i] = results[i][k];
+			}
+		}
+		
+
+		// Create Chart
+		final XYChart chart = new XYChartBuilder().width(500).height(400).theme(ChartTheme.XChart).title(title).xAxisTitle(xAxis).yAxisTitle(yAxis).build();
+
+		// Customize Chart
+		chart.getStyler().setLegendPosition(LegendPosition.InsideNE);
+		chart.getStyler().setDefaultSeriesRenderStyle(XYSeriesRenderStyle.Scatter);
+
+		// Series
+		for (int i = 0; i < seriesNames.length; i++) {
+			chart.addSeries(seriesNames[i],xData, yData[i]);
+		}						
+		// Schedule a job for the event-dispatching thread:
+		// creating and showing this application's GUI.
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+
+			@Override
+			public void run() {
+
+				// Create and set up the window.
+				JFrame frame = new JFrame("Deterministic model");
+				frame.setLayout(new BorderLayout());
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+				// chart
+				JPanel chartPanel = new XChartPanel<XYChart>(chart);
+				frame.add(chartPanel, BorderLayout.CENTER);
+
+				// Display the window.
+				frame.pack();
+				frame.setVisible(true);
+			}
+		});
+
+	}
+	
 	public void stochasticChart(double[][][] results, double[][] average, String[] seriesNames,String title, String xAxis, String yAxis)
 			throws IOException {
 		double[][] xData=new double[results.length][results[0].length];

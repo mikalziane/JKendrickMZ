@@ -4,10 +4,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.math3.exception.DimensionMismatchException;
+import org.apache.commons.math3.exception.MaxCountExceededException;
+import org.apache.commons.math3.ode.FirstOrderDifferentialEquations;
+
 import jKendrick.concerns.Concern;
 import jKendrick.concerns.TransitionRateMatrix;
 
-public class Scenario {
+public class Scenario implements FirstOrderDifferentialEquations{
 	private List<Concern> concerns;
 	private Map<String,Double> parameters;
 	private List<String> compartments;
@@ -50,6 +54,10 @@ public class Scenario {
 		return parameters.get(key);
 	}
 	
+	public String getCompartment(int x) {
+		return compartments.get(x);
+	}
+	
 	
 	public TransitionRateMatrix getTransitions() {
 		//a modifier pour la composition a plusieurs concerns
@@ -68,6 +76,16 @@ public class Scenario {
 		return n;
 	}
 	
+	public double[] getPopulation() {
+		double[] population=new double[getNbCompartments()];
+		double n=getN();
+		assert n>0.;
+		for(int i=0;i<getNbCompartments();++i) {
+			population[i]=getParam(compartments.get(i));
+		}
+		return population;
+	}
+	
 	public double[] getProportions() {
 		double[] proportion=new double[getNbCompartments()];
 		double n=getN();
@@ -78,6 +96,24 @@ public class Scenario {
 		return proportion;
 	}
 	
+	@Override
+	public void computeDerivatives(double t, double[] population, double[] populationDoT)
+			throws MaxCountExceededException, DimensionMismatchException {
+		for(int i=0;i<getNbCompartments();++i) {
+			populationDoT[i]=0.;
+			for(int j=0;j<getNbCompartments();++j) {
+				if(j!=i) {
+					populationDoT[i]+=getTransitions().getRate(compartments.get(j), compartments.get(i), this);
+					populationDoT[i]-=getTransitions().getRate(compartments.get(i), compartments.get(j), this);
+				}
+			}
+		}
+	}
+
+	@Override
+	public int getDimension() {
+		return getNbCompartments();
+	}
 	
 
 }
