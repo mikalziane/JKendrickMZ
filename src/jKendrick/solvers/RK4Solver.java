@@ -24,6 +24,13 @@ public class RK4Solver implements ISolver{
 		integ = new ClassicalRungeKuttaIntegrator(step);
 	}
 	
+	@Deprecated
+	public RK4Solver(double step) {
+		this.step=step;
+	}
+	
+	
+	
 	public double integrate (FirstOrderDifferentialEquations ode, 
 					double t0, double[] y0, double t, double[] y) {
 		return integ.integrate(ode, t0, y0, t , y);
