@@ -83,6 +83,17 @@ R = 0
 
 STATUS : not yet enforced ^^
 
+### Transition rates matrix
+The transition rates matrix is composed of the functional transitions rates between compartments.
+A transition is set by giving the compartment from which the transition starts, the compartment toward which it ends, and the rate at which the transition occurs.
+Each concern has it’s own transition rates matrix. 
+
+When concerns are merged into a scenario, a new transition rates matrix is created using the tensor sum of the concern’s matrices. (Not yet implemented)
+
+Each not null transition of the matrix is considered as a possible event for stochastic simulations.
+For deterministic simulations, the equations are generated using the transition rates matrix.
+
+
 ## Examples from Keeling and Rohani
 
 ### SIR
