@@ -16,6 +16,7 @@ import jKendrick.models.SEIR;
 import jKendrick.scenario.Model;
 import jKendrick.scenario.Scenario;
 import jKendrick.scenario.Simulation;
+import jKendrick.solvers.Gillespie;
 import jKendrick.solvers.RK4Solver;
 import jKendrick.solvers.TauLeap;
 
@@ -61,18 +62,20 @@ public class MainSEIR {
 		
 		TauLeap tl=new TauLeap(SEIRModel);
 		RK4Solver rksolver=new RK4Solver(SEIRModel);
+		Gillespie g=new Gillespie(SEIRModel);
 		Visualization v=new Visualization();
 		String title="SEIR";
 		
 		Simulation tauLeapSim=new Simulation(tl, v, title);
 		Simulation rk4Sim=new Simulation(rksolver, v, title);
-		System.out.println("ready");
+		Simulation gillespieSim=new Simulation(g, v, title);
 		
-		rk4Sim.simulate();
 		tauLeapSim.simulate();
+		rk4Sim.simulate();
+		gillespieSim.simulate();
 		
 		
-		System.out.println("done");
+		
 		
 		
 	}

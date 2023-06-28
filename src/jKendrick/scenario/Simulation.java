@@ -17,6 +17,15 @@ public class Simulation {
 	
 	public void simulate() {
 		solver.solve();
+			try {
+				v.getChart(solver, title, "time", "population");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	}
+	
+	/*public void simulate() {
+		solver.solve();
 		double[][][] result=solver.getResult();
 		if(result.length==1) {
 			try {
@@ -34,6 +43,6 @@ public class Simulation {
 				}
 		}
 		
-	}
+	}*/
 
 }

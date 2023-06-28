@@ -15,6 +15,7 @@ import jKendrick.concerns.SumRate;
 import jKendrick.scenario.Model;
 import jKendrick.scenario.Scenario;
 import jKendrick.scenario.Simulation;
+import jKendrick.solvers.Gillespie;
 import jKendrick.solvers.RK4Solver;
 import jKendrick.solvers.TauLeap;
 
@@ -53,14 +54,17 @@ public class MainSIS {
 		Model SISModel=new Model(SISscenario,step, last, nbCycle);
 		TauLeap tl=new TauLeap(SISModel);
 		RK4Solver rksolver=new RK4Solver(SISModel);
+		Gillespie g=new Gillespie(SISModel);
 		Visualization v=new Visualization();
 		String title="SIS";
 		
 		Simulation tauLeapSim=new Simulation(tl, v, title);
 		Simulation rk4Sim=new Simulation(rksolver, v, title);
-	
-		rk4Sim.simulate();
+		Simulation gillespieSim=new Simulation(g, v, title);
+		
 		tauLeapSim.simulate();
+		rk4Sim.simulate();
+		gillespieSim.simulate();
 		
 		
 		

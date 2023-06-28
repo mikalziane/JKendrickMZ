@@ -10,7 +10,7 @@ import jKendrick.concerns.Concern;
 import jKendrick.scenario.Scenario;
 import jKendrick.scenario.Simulation;
 import jKendrick.concerns.DivRate;
-
+import jKendrick.solvers.Gillespie;
 import jKendrick.solvers.RK4Solver;
 import jKendrick.solvers.TauLeap;
 import jKendrick.concerns.IRates;
@@ -54,14 +54,17 @@ public class MainSIR {
 		Model SIRModel=new Model(SIRscenario,step, end, nbCycle);
 		TauLeap tl=new TauLeap(SIRModel);
 		RK4Solver rksolver=new RK4Solver(SIRModel);
+		Gillespie g=new Gillespie(SIRModel);
 		Visualization v=new Visualization();
 		String title="SIR";
 		
 		Simulation tauLeapSim=new Simulation(tl, v, title);
 		Simulation rk4Sim=new Simulation(rksolver, v, title);
+		Simulation gillespieSim=new Simulation(g, v, title);
 		
 		tauLeapSim.simulate();
 		rk4Sim.simulate();
+		gillespieSim.simulate();
 		
 		
 

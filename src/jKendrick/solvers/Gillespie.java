@@ -1,66 +1,68 @@
 package jKendrick.solvers;
 
 
-import java.util.Arrays;
-import java.util.Map;
+
+import java.util.List;
+
 import java.util.Random;
 
-import jKendrick.events.IEvent;
+
+import jKendrick.scenario.ISolver;
+import jKendrick.scenario.Model;
+import jKendrick.scenario.Scenario;
 import jKendrick.tools.GeneralizedRW;
 
 
-public class Gillespie {
+
+public class Gillespie implements ISolver{
+	private double step;
 	private int nbCycle;
 	private int nbSteps;
-	private Map<String,Integer> nbIndiv;
 	private double[][][] result;//[cycle][step][compartment]
-	private String[] compartments;
-	private IEvent[] events;
+	private Scenario scenario;
 	private Random random;
+	private double end;
 	private final static double MINRAND=0.0000001;
 	
 	
-	public Gillespie(int nbCycle, int nbStep, Map<String,Integer>nbIndiv, IEvent[] events) {
+	
+	public Gillespie(Model model) {
+		this.step=model.getStep();
+		this.nbCycle=model.getNbCycles();
 		assert nbCycle>0;
-		assert nbStep>0;
-		assert nbIndiv.size()>0;
-		assert events.length>0;
-		this.nbCycle=nbCycle;
-		this.nbSteps=nbStep;
-		this.nbIndiv=nbIndiv;
-		this.compartments=nbIndiv.keySet().toArray((new String[nbIndiv.size()]));
+		assert step>0;
+		this.nbSteps=(int) Math.ceil(model.getEnd()/step);
+		this.end=model.getEnd();
+		this.scenario=model.getScenario();
 		initValues();
 		this.random=new Random();
-		this.events=events;
+		
 	}
 	
 	//initialise le tableau result avec les valeurs initiales
 	public void initValues(){
-		double result[][][]=new double[nbCycle][nbSteps][nbIndiv.size()+1];
-		int j=0;
+		List<String> population=scenario.getCompartments();
+		double result[][][]=new double[nbCycle][nbSteps][scenario.getNbCompartments()+1];
 		for(int i=0;i<nbCycle;++i) {
-			for(Map.Entry<String, Integer> entry : nbIndiv.entrySet()) {
-				result[i][0][j]=(double)entry.getValue();
-				++j;
+			for(int j=0;j<population.size();++j) {
+				result[i][0][j]=scenario.getParam(population.get(j));	
 			}
-			result[i][0][j]=0.;
-			j=0;
 		}
 		this.result=result;
 	}
 	
 	//retourne un tableau de taux de probabilité de chaque évènement en fonction de la population à un temps t
 	public double[] getRates(double[] population) {
-		assert population.length>0;
+		String[][] events=scenario.getTransitions().getPossibleEvents();
 		double[] r=new double[events.length];
-		for(int i=0;i<r.length;++i) {
-			r[i]=events[i].getRate(compartments,population);
+		for(int i=0;i<events.length;++i) {
+			r[i]=scenario.getTransitions().getRate(events[i][0], events[i][1], scenario);
 		}
 		return r;
 	}
 	
 	//retourne un tableau avec la population initiale de chaque compartment
-	public double[] getInitialPopulation() {
+	/*public double[] getInitialPopulation() {
 		double[] pop=new double[nbIndiv.size()];
 		int i=0;
 		for(Map.Entry<String, Integer> entry : nbIndiv.entrySet()) {
@@ -68,7 +70,7 @@ public class Gillespie {
 			++i;
 		}
 		return pop;
-	}
+	}*/
 	
 	//retourne la valeur R=somme des taux des evenements selon la population initiale
 	public double getR(double[] population) {
@@ -82,14 +84,13 @@ public class Gillespie {
 	//applique l'algorithme de Gillespie(et range les resultats dans le tableau result)
 	public void solve(){
 		double r=0.;
-		int timeRow=nbIndiv.size();
+		int timeRow=scenario.getNbCompartments();
 		for(int i=0;i<nbCycle;++i) {
 			for(int j=1;j<nbSteps;++j) {
-				for(int l=0;l<nbIndiv.size();++l) {
+				for(int l=0;l<scenario.getNbCompartments();++l) {
 					result[i][j][l]=getValue(i, j-1, l);
 				}
 				r=getR(result[i][j-1]);
-				System.out.println("R :"+r);
 				if(r==0) {
 					r=100;
 				}
@@ -98,28 +99,29 @@ public class Gillespie {
 					rand1=MINRAND;
 				}
 				double tau=1/r*Math.log(1/rand1);
-				
-				System.out.println("tau : "+tau);
+				String[][] events=scenario.getTransitions().getPossibleEvents();
 				GeneralizedRW rw=new GeneralizedRW(getRates(result[i][j-1]),0.0000001);
 				int currentEvent=rw.getEvent();
 				if(currentEvent!=-1) {
-					result[i][j]=events[currentEvent].action(compartments, result[i][j-1]);
+					scenario.transition(events[currentEvent][0],events[currentEvent][1]);
+					result[i][j][scenario.indexOf(events[currentEvent][0])]--;
+					result[i][j][scenario.indexOf(events[currentEvent][1])]++;
+					
 				}
 				else {
 					result[i][j]=result[i][j-1];
 				}
 				result[i][j][timeRow]=result[i][j-1][timeRow]+tau;
-				System.out.println("time : "+result[i][j][timeRow]);
 			}
 		}
 	}
 	
 	//retourne un tableau avec les valeurs moyennes pour chaque étape pour chaque compartment
 	public double[][] getAverage(){
-		double[][] averages=new double[nbSteps][nbIndiv.size()+1];
+		double[][] averages=new double[nbSteps][scenario.getNbCompartments()];
 		double x=0.;
 		for(int i=0;i<nbSteps;++i) {
-			for(int j=0;j<nbIndiv.size()+1;++j) {
+			for(int j=0;j<scenario.getNbCompartments()+1;++j) {
 				x=0.;
 				for(int k=0;k<nbCycle;k++) {
 					x+=result[k][i][j];
@@ -145,9 +147,9 @@ public class Gillespie {
 	//retourne le tableau des moyennes inverse et sans la ligne des durees
 	public double[][] getValues(){
 		double[][] averages=getAverage();
-		double[][] values=new double[nbIndiv.size()][nbSteps];
+		double[][] values=new double[scenario.getNbCompartments()][nbSteps];
 		for(int i=0;i<nbSteps;++i) {
-			for(int j=0;j<nbIndiv.size();++j) {
+			for(int j=0;j<scenario.getNbCompartments();++j) {
 				values[j][i]=averages[i][j];
 			}
 		}
@@ -161,10 +163,10 @@ public class Gillespie {
 	
 	//retourne une copie du tableau de resultat
 	public double[][][] getResult(){
-		double r[][][]=new double[nbCycle][nbSteps][nbIndiv.size()+1];
+		double r[][][]=new double[nbCycle][nbSteps][scenario.getNbCompartments()+1];
 		for(int i=0;i<nbCycle;++i) {
 			for(int j=0;j<nbSteps;++j) {
-				for(int k=0;k<=nbIndiv.size();++k) {
+				for(int k=0;k<=scenario.getNbCompartments();++k) {
 					r[i][j][k]=result[i][j][k];
 				}
 			}
@@ -174,7 +176,7 @@ public class Gillespie {
 	
 	//retourne un tableau qui contient le cycle median
 	public double[][] getMedianPath(){
-		double[][] median=new double[nbSteps][nbIndiv.size()+1];
+		double[][] median=new double[nbSteps][scenario.getNbCompartments()];
 		double[][][] r=getResult();
 		int cycle=getMedCycle();
 		median=r[cycle];
@@ -206,11 +208,11 @@ public class Gillespie {
 	}
 	//retourne un tableau avec les classements d'un cycle
 	public double[] getCycleRanks(double[][][] scores, int cycle){
-		int nbScores=nbSteps*(nbIndiv.size()+1);
+		int nbScores=nbSteps*(scenario.getNbCompartments()+1);
 		double[] cycleScores=new double[nbScores];
 		int k=0;
 		for(int i=0;i<nbSteps;++i) {
-			for(int j=0;j<=nbIndiv.size();++j) {
+			for(int j=0;j<=scenario.getNbCompartments();++j) {
 				cycleScores[k]=scores[i][j][cycle];
 			}
 		}
@@ -219,9 +221,9 @@ public class Gillespie {
 	
 	//retourne un tableau avec tous les classements de chaque cycle
 	public double[][][] getAllRanks(){
-		double[][][] scores=new double[nbSteps][nbIndiv.size()+1][nbCycle];
+		double[][][] scores=new double[nbSteps][scenario.getNbCompartments()+1][nbCycle];
 		for(int i=0;i<nbSteps;++i) {
-			for(int j=0;j<=nbIndiv.size();++j) {
+			for(int j=0;j<=scenario.getNbCompartments();++j) {
 				scores[i][j]=getRanks(i, j);
 			}
 		}
@@ -302,5 +304,39 @@ public class Gillespie {
 				++c2;
 			}
 		}
+	}
+
+	@Override
+	public String[] getLabels() {
+		return scenario.getCompartments().toArray(new String[scenario.getNbCompartments()]);
+	}
+
+	@Override
+	public double getEnd() {
+		return end;
+	}
+
+	@Override
+	public double getStep() {
+		return step;
+	}
+
+	@Override
+	public double[] getTimes(int cycle) {
+		double[] times=new double[nbSteps];
+		for(int i=0;i<times.length;++i) {
+			times[i]=result[cycle][i][scenario.getNbCompartments()];
+		}
+		return times;
+	}
+
+	@Override
+	public double[] getMedianTimes() {
+		return getTimes(getMedCycle());
+	}
+
+	@Override
+	public int getNbSteps() {
+		return nbSteps;
 	}
 }

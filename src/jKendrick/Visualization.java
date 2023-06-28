@@ -17,6 +17,8 @@ import org.knowm.xchart.style.Styler.LegendPosition;
 
 import org.knowm.xchart.style.markers.SeriesMarkers;
 
+import jKendrick.scenario.ISolver;
+
 public class Visualization {
 	
 	
@@ -247,6 +249,73 @@ public class Visualization {
 			frame.setVisible(true);
 					 }
 				});
+		
+	}
+	
+	public void getChart(ISolver solver,String title, String xAxis, String yAxis)
+			throws IOException {
+		double[][][] results=solver.getResult();
+		int nbSteps=solver.getNbSteps();
+		String[] labels=solver.getLabels();
+		final XYChart chart = new XYChartBuilder().width(500).height(400).title(title).xAxisTitle(xAxis).yAxisTitle(yAxis).build();
+		//style chart
+		
+		chart.getStyler().setLegendPosition(LegendPosition.OutsideE);
+		chart.getStyler().setDefaultSeriesRenderStyle(XYSeriesRenderStyle.Line);
+		chart.getStyler().setMarkerSize(1);
+		
+		if(results.length>1) {
+			double[][] xData=new double[results.length][nbSteps];
+			double[][][] yData=new double[results.length][labels.length][nbSteps];
+			for(int i=0;i<results.length;++i) {	
+				for(int j=0;j<labels.length;++j) {	
+					for(int k=0;k<results[0].length;++k) {
+						xData[i]=solver.getTimes(i);
+						yData[i][j][k]=results[i][k][j];
+					}
+					String serieName=new String(" "+labels[j]+"-"+i);
+					
+					XYSeries stochasticSeries =chart.addSeries(serieName,xData[i], yData[i][j]);
+					stochasticSeries.setLineColor(new Color(0, 0, 0, 10));
+					stochasticSeries.setMarkerColor(new Color(0, 0, 0, 10));
+					stochasticSeries.setMarker(SeriesMarkers.CIRCLE);
+					stochasticSeries.setShowInLegend(false);
+				}	
+			}
+		}
+		double[][] medianPath=solver.getMedianPath();
+		
+		double[] xDataAverage=new double[medianPath.length];
+		double[][] yDataAverage=new double[labels.length][medianPath.length];
+		for(int i=0;i<labels.length;++i) {
+			for(int j=0;j<medianPath.length;++j) {
+				xDataAverage=solver.getMedianTimes();
+				yDataAverage[i][j]=medianPath[j][i];
+			}
+			chart.addSeries(labels[i], xDataAverage, yDataAverage[i]);
+			
+		}
+		
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+
+			@Override
+			public void run() {
+
+			// Create and set up the window.
+			JFrame frame = new JFrame("Modelisation");
+			frame.setLayout(new BorderLayout());
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+			// chart
+		    JPanel chartPanel = new XChartPanel<XYChart>(chart);
+			frame.add(chartPanel, BorderLayout.CENTER);
+
+			// Display the window.
+			frame.pack();
+			frame.setVisible(true);
+					 }
+				});
+		
 		
 	}
 

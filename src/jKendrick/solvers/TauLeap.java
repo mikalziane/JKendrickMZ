@@ -21,11 +21,15 @@ public class TauLeap implements ISolver{
 	public TauLeap(Model model) {
 		this.step=model.getStep();
 		this.nbCycles=model.getNbCycles();
+		assert nbCycles>0;
+		assert step>0;
 		this.nbSteps=(int) Math.ceil(model.getEnd()/step);
 		this.end=model.getEnd();
 		poisson=new PoissonGenerator();
 		this.scenario=model.getScenario();
+	
 		initValues();
+		
 	}
 	
 	public void initValues() {
@@ -236,6 +240,25 @@ public class TauLeap implements ISolver{
 			return step;
 		}
 		
+		@Override
+		public double[] getTimes(int cycle) {
+			double[] times=new double[nbSteps];
+			times[0]=0;
+			for(int i=1;i<times.length;++i) {
+				times[i]=times[i-1]+step;
+			}
+			return times;
+		}
+
+		@Override
+		public double[] getMedianTimes() {
+			return getTimes(1);
+		}
+		
+		@Override
+		public int getNbSteps() {
+			return nbSteps;
+		}
 		
 	
 	

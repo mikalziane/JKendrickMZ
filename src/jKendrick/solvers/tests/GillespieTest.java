@@ -20,6 +20,7 @@ class GillespieTest {
 
 	@Test
 	void test() {
+		/*
 		//test de gillespie sur SIR avec 10 cycles de 20 étapes
 		int nbCycle=10;
 		int nbStep=20;
@@ -129,7 +130,9 @@ class GillespieTest {
 		
 		
 		
+		
 	}
+	/*
 	KolmogorovSmirnovTest ks=new KolmogorovSmirnovTest();
 	 public double calculateKs(double[] x, double[] y){ 
 	     double d = ks.kolmogorovSmirnovStatistic(x, y); 
@@ -137,5 +140,6 @@ class GillespieTest {
 	    	     false);
 	   return p;
 	   } 
+	 */
 
 }

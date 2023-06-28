@@ -12,4 +12,10 @@ public interface ISolver {
 	public double getEnd();
 
 	public double getStep();
+	
+	public double[] getTimes(int cycle);
+	
+	public double[] getMedianTimes();
+	
+	public int getNbSteps();
 }
