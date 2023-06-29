@@ -3,9 +3,9 @@ package jKendrick.solvers;
 
 import java.util.List;
 
-import jKendrick.scenario.ISolver;
-import jKendrick.scenario.Model;
-import jKendrick.scenario.Scenario;
+import jKendrick.simulation.ISolver;
+import jKendrick.simulation.Model;
+import jKendrick.simulation.Scenario;
 import jKendrick.tools.PoissonGenerator;
 
 public class TauLeap implements ISolver{

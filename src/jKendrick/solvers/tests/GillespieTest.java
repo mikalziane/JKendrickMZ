@@ -2,20 +2,12 @@ package jKendrick.solvers.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import org.apache.commons.math3.stat.inference.KolmogorovSmirnovTest;
 import org.junit.jupiter.api.Test;
 
-import jKendrick.events.Infection;
-import jKendrick.events.Recovery;
-import jKendrick.solvers.Gillespie;
-import jKendrick.Visualization;
-import jKendrick.events.EndOfImmunity;
-import jKendrick.events.IEvent;
+
+
+
 class GillespieTest {
 
 	@Test

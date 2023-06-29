@@ -1,4 +1,4 @@
-package jKendrick.scenario;
+package jKendrick.simulation;
 
 import java.util.HashMap;
 import java.util.List;
@@ -7,9 +7,6 @@ import java.util.Map;
 import org.apache.commons.math3.exception.DimensionMismatchException;
 import org.apache.commons.math3.exception.MaxCountExceededException;
 import org.apache.commons.math3.ode.FirstOrderDifferentialEquations;
-
-import jKendrick.concerns.Concern;
-import jKendrick.concerns.TransitionRateMatrix;
 
 public class Scenario implements FirstOrderDifferentialEquations{
 	private List<Concern> concerns;

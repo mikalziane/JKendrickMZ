@@ -1,8 +1,8 @@
-package jKendrick;
+package jKendrick.models.old;
 
 import java.io.IOException;
 
-import jKendrick.models.SIR;
+import jKendrick.Visualization;
 import jKendrick.solvers.RK4Solver;
 
 public class MainSIRCard {

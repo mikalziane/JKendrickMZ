@@ -6,10 +6,9 @@ import java.util.List;
 
 import java.util.Random;
 
-
-import jKendrick.scenario.ISolver;
-import jKendrick.scenario.Model;
-import jKendrick.scenario.Scenario;
+import jKendrick.simulation.ISolver;
+import jKendrick.simulation.Model;
+import jKendrick.simulation.Scenario;
 import jKendrick.tools.GeneralizedRW;
 
 

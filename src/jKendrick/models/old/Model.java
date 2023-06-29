@@ -1,4 +1,4 @@
-package jKendrick.models;
+package jKendrick.models.old;
 
 import org.apache.commons.math3.ode.FirstOrderDifferentialEquations;
 

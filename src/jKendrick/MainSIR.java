@@ -1,22 +1,22 @@
 package jKendrick;
 
 
-import jKendrick.scenario.Model;
+import jKendrick.rates.DivRate;
+import jKendrick.rates.MulRate;
+import jKendrick.rates.Rate;
+import jKendrick.rates.SumRate;
+
 import java.util.ArrayList;
 import java.util.List;
 
-
-import jKendrick.concerns.Concern;
-import jKendrick.scenario.Scenario;
-import jKendrick.scenario.Simulation;
-import jKendrick.concerns.DivRate;
+import jKendrick.simulation.Concern;
+import jKendrick.simulation.IRates;
+import jKendrick.simulation.Model;
+import jKendrick.simulation.Scenario;
+import jKendrick.simulation.Simulation;
 import jKendrick.solvers.Gillespie;
 import jKendrick.solvers.RK4Solver;
 import jKendrick.solvers.TauLeap;
-import jKendrick.concerns.IRates;
-import jKendrick.concerns.MulRate;
-import jKendrick.concerns.Rate;
-import jKendrick.concerns.SumRate;
 public class MainSIR {
 
 	public static void main(String[] args) {

@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import jKendrick.models.SEIR;
+import jKendrick.models.old.SEIR;
 
 public class SEIRModelTest {
 

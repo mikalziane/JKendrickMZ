@@ -4,10 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import jKendrick.concerns.Concern;
-import jKendrick.concerns.IRates;
-
-import jKendrick.concerns.Rate;
+import jKendrick.rates.Rate;
+import jKendrick.simulation.Concern;
+import jKendrick.simulation.IRates;
 class ConcernTest {
 
 	@Test

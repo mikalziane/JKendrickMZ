@@ -1,10 +1,8 @@
-package jKendrick.concerns;
+package jKendrick.simulation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import jKendrick.scenario.Scenario;
 
 public class TransitionRateMatrix {
 	private HashMap<XY,IRates> rates;

@@ -1,4 +1,4 @@
-package jKendrick.scenario;
+package jKendrick.simulation;
 
 public interface ISolver {
 	public void solve();

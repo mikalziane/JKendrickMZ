@@ -1,6 +1,7 @@
-package jKendrick.concerns;
+package jKendrick.rates;
 
-import jKendrick.scenario.Scenario;
+import jKendrick.simulation.IRates;
+import jKendrick.simulation.Scenario;
 
 public class DivRate implements IRates{
 	private IRates r1;

@@ -17,7 +17,7 @@ import org.knowm.xchart.style.Styler.LegendPosition;
 
 import org.knowm.xchart.style.markers.SeriesMarkers;
 
-import jKendrick.scenario.ISolver;
+import jKendrick.simulation.ISolver;
 
 public class Visualization {
 	

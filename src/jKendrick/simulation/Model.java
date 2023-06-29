@@ -1,4 +1,4 @@
-package jKendrick.scenario;
+package jKendrick.simulation;
 
 
 
