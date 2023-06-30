@@ -29,7 +29,6 @@ class ConcernTest {
 		ABC.setTransitionRate("A", "C", x);
 		ABC.setTransitionRate("C", "A", y);
 		
-		System.out.println(ABC);
 		
 		assertThrows(AssertionError.class,
 	            ()->{new Concern("", "x y z");} );

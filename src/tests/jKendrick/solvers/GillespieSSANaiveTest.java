@@ -1,4 +1,4 @@
-package jKendrick.solvers.tests;
+package tests.jKendrick.solvers;
 
 import static org.junit.jupiter.api.Assertions.*;
 

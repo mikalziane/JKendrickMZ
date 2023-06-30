@@ -1,4 +1,4 @@
-package jKendrick;
+package tests.jKendrick.simulation;
 
 
 
@@ -6,7 +6,7 @@ package jKendrick;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import jKendrick.Visualization;
 import jKendrick.rates.DivRate;
 import jKendrick.rates.MulRate;
 import jKendrick.rates.Rate;

@@ -1,4 +1,4 @@
-package tests.JKendrick.models;
+package tests.JKendrick.models.old;
 
 import static org.junit.Assert.*;
 

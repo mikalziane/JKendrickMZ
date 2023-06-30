@@ -1,4 +1,4 @@
-package jKendrick;
+package tests.jKendrick.solvers;
 
 
 
