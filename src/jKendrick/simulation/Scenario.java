@@ -1,5 +1,6 @@
 package jKendrick.simulation;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +13,8 @@ public class Scenario implements FirstOrderDifferentialEquations{
 	private List<Concern> concerns;
 	private Map<String,Double> parameters;
 	private Map<String,Double> initialParameters;
-	private List<String> compartments;
+	private List<Map<String,String>> compartments;
+	private List<String> attributes;
 	
 	public Scenario(List<Concern> concerns) {
 		this.concerns=concerns;
@@ -33,7 +35,17 @@ public class Scenario implements FirstOrderDifferentialEquations{
 	}
 	
 	public List<String> getCompartments(){
-		return compartments;
+		List<String> comparts=new ArrayList<>();
+		String separator="_";
+		StringBuilder s=new StringBuilder();
+		for(int i=0;i<compartments.size();++i) {
+			for(int j=0;j<attributes.size();++j) {
+				s.append(compartments.get(i).get(attributes.get(j)));
+				s.append(separator);
+			}
+			comparts.add(separator);
+		}
+		return comparts;
 	}
 	
 	public void setParameter(String compartment,double population) {

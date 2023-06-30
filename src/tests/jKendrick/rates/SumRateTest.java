@@ -17,7 +17,7 @@ class SumRateTest {
 
 	@Test
 	void test() {
-		Concern ABC=new Concern("A B C", "X Y");
+		Concern ABC=new Concern("status","A B C", "X Y");
 		IRates X=new Rate("X");
 		IRates Y=new Rate("Y");
 		IRates XY=new SumRate(X, Y);

@@ -16,7 +16,7 @@ class ScenarioTest {
 
 	@Test
 	void test() {
-		Concern ABC=new Concern("A B C", "x y z");
+		Concern ABC=new Concern("status","A B C", "x y z");
 		IRates z=new Rate("z");
 		IRates x=new Rate("x");
 		IRates y=new Rate("y");

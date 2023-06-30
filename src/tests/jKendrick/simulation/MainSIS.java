@@ -22,7 +22,7 @@ import jKendrick.solvers.TauLeap;
 
 public class MainSIS {
 	public static void main(String[] args) {
-		Concern SI=new Concern("S I","beta gamma");
+		Concern SI=new Concern("status","S I","beta gamma");
 		
 		IRates S=new Rate("S");
 		IRates I=new Rate("I");

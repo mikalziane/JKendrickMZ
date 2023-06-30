@@ -17,7 +17,7 @@ class DivRateTest {
 
 	@Test
 	void test() {
-		Concern ABC=new Concern("A B C", "X Y Z");
+		Concern ABC=new Concern("status","A B C", "X Y Z");
 		IRates X=new Rate("X");
 		IRates Y=new Rate("Y");
 		IRates Z=new Rate("Z");

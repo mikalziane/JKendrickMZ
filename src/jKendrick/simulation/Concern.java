@@ -12,9 +12,11 @@ public class Concern {
 	private ArrayList<String> compartmentNames;
 	private Map<String, Double> parameters;
 	private TransitionRateMatrix transitionRates;
+	private String name;
 	
-	public Concern(String compartments, String parametersNames) {
+	public Concern(String name, String compartments, String parametersNames) {
 		assert compartments.length()>0;
+		this.name=name;
 		compartmentNames=new ArrayList<String>();
 		String[] splitCompart = compartments.split(" ");
 		for(int i=0;i<splitCompart.length;++i) {
@@ -26,6 +28,10 @@ public class Concern {
 			parameters.put(param[i], 0.);
 		}
 		transitionRates=new TransitionRateMatrix(compartmentNames);
+	}
+	
+	public String getName() {
+		return name;
 	}
 	
 	public void setParameter(String param,double value) {
@@ -59,6 +65,10 @@ public class Concern {
 	        list.add(c);
 	     }
 	     return list;
+	}
+	
+	public int getNbCompartments() {
+		return compartmentNames.size();
 	}
 	
 	/*@Override

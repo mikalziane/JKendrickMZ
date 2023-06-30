@@ -39,7 +39,7 @@ class TransitionrateMatrixTest {
 		assertTrue(events[0][1].equals("b")||events[0][1].equals("c")||events[0][1].equals("d"));
 		
 		
-		Concern ABC=new Concern("A B C", "x y z");
+		Concern ABC=new Concern("status","A B C", "x y z");
 		
 		
 		ABC.setTransitionRate("B", "C", z);

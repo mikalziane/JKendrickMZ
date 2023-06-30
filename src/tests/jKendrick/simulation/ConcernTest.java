@@ -11,7 +11,7 @@ class ConcernTest {
 
 	@Test
 	void test() {
-		Concern ABC=new Concern("A B C", "x y z");
+		Concern ABC=new Concern("status","A B C", "x y z");
 		
 		assertEquals(0, ABC.indexOfCompartment("A"));
 		assertEquals(2, ABC.indexOfCompartment("C"));
@@ -31,9 +31,9 @@ class ConcernTest {
 		
 		
 		assertThrows(AssertionError.class,
-	            ()->{new Concern("", "x y z");} );
+	            ()->{new Concern("status","", "x y z");} );
 		
-		Concern noParam=new Concern("A B C", "");
+		Concern noParam=new Concern("status","A B C", "");
 		noParam.setParameter("i", 2.3);
 		assertEquals(2.3, noParam.getParameter("i"));
 		

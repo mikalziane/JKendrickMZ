@@ -20,7 +20,7 @@ import jKendrick.solvers.TauLeap;
 public class MainSIR {
 
 	public static void main(String[] args) {
-		Concern SIR=new Concern("S I R","beta gamma");
+		Concern SIR=new Concern("status","S I R","beta gamma");
 		IRates beta=new Rate("beta");
 		IRates S=new Rate("S");
 		IRates I=new Rate("I");
