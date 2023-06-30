@@ -37,7 +37,7 @@ public class Scenario implements FirstOrderDifferentialEquations{
 	}
 	
 	public void setParameter(String compartment,double population) {
-		assert parameters.containsKey(compartment);
+		assert parameters.containsKey(compartment) || compartments.contains(compartment);
 		parameters.put(compartment, population);
 	}
 	
@@ -71,6 +71,7 @@ public class Scenario implements FirstOrderDifferentialEquations{
 		return concerns.get(0).getTransitionRateMatrix();
 	}
 	
+	//a modifier pour la composition a plusieurs concerns
 	public List<String> initCompartments(){
 		return concerns.get(0).getCompartments();
 	}
