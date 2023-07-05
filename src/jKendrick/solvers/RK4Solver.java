@@ -46,7 +46,7 @@ public class RK4Solver implements ISolver{
 			result[i]=population;
 			integrate(s, t, population, t+step, population);
 			for(int j=0;j<s.getNbCompartments();++j) {
-				s.setParameter(s.getCompartment(j), population[j]);
+				s.setParameter(s.mapToStringName(s.getCompartment(j)), population[j]);
 			}
 		}
 		this.result=result;

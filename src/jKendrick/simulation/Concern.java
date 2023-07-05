@@ -3,6 +3,7 @@ package jKendrick.simulation;
 
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,7 +28,16 @@ public class Concern {
 		for(int i=0;i<param.length;++i) {
 			parameters.put(param[i], 0.);
 		}
-		transitionRates=new TransitionRateMatrix(compartmentNames);
+		transitionRates=new TransitionRateMatrix(mapOfComparts());
+	}
+	
+	public List<Map<String,String>> mapOfComparts(){
+		List<Map<String,String>> comparts=new ArrayList<Map<String,String>>();
+		for(int i=0;i<getNbCompartments();++i) {
+			comparts.add(new HashMap<String,String>());
+			comparts.get(i).put(name, getCompartment(i));
+		}
+		return comparts;
 	}
 	
 	public String getName() {
@@ -54,9 +64,17 @@ public class Concern {
 		return compartmentNames.indexOf(compartment);
 	}
 	
+	public String getCompartment(int i) {
+		return compartmentNames.get(i);
+	}
+	
 	public void setTransitionRate(String from,String to,IRates rate) {
 		assert compartmentNames.contains(from) && compartmentNames.contains(to);
-		transitionRates.setRate(from, to, rate);
+		Map<String,String> fromName=new HashMap<>();
+		fromName.put(name, from);
+		Map<String,String> toName=new HashMap<>();
+		toName.put(name, to);
+		transitionRates.setRate(fromName, toName, rate);
 	}
 	
 	public ArrayList<String> getCompartments() {

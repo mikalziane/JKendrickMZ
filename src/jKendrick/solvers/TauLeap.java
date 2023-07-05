@@ -2,6 +2,7 @@ package jKendrick.solvers;
 
 
 import java.util.List;
+import java.util.Map;
 
 import jKendrick.simulation.ISolver;
 import jKendrick.simulation.Model;
@@ -60,7 +61,7 @@ public class TauLeap implements ISolver{
 				for(int l=0;l<scenario.getNbCompartments();++l) {
 					result[i][j][l]=getValue(i, j-1, l);
 				}
-				String[][] events=scenario.getTransitions().getPossibleEvents();
+				Map<String,String>[][] events=scenario.getTransitions().getPossibleEvents();
 				for(int k=0;k<events.length;++k) {
 					rate=scenario.getTransitions().getRate(events[k][0],events[k][1],scenario);
 					if(rate!=0.) {

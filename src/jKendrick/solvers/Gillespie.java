@@ -3,7 +3,7 @@ package jKendrick.solvers;
 
 
 import java.util.List;
-
+import java.util.Map;
 import java.util.Random;
 
 import jKendrick.simulation.ISolver;
@@ -52,7 +52,7 @@ public class Gillespie implements ISolver{
 	
 	//retourne un tableau de taux de probabilité de chaque évènement en fonction de la population à un temps t
 	public double[] getRates(double[] population) {
-		String[][] events=scenario.getTransitions().getPossibleEvents();
+		Map<String,String>[][] events=scenario.getTransitions().getPossibleEvents();
 		double[] r=new double[events.length];
 		for(int i=0;i<events.length;++i) {
 			r[i]=scenario.getTransitions().getRate(events[i][0], events[i][1], scenario);
@@ -98,7 +98,7 @@ public class Gillespie implements ISolver{
 					rand1=MINRAND;
 				}
 				double tau=1/r*Math.log(1/rand1);
-				String[][] events=scenario.getTransitions().getPossibleEvents();
+				Map<String,String>[][] events=scenario.getTransitions().getPossibleEvents();
 				GeneralizedRW rw=new GeneralizedRW(getRates(result[i][j-1]),0.0000001);
 				int currentEvent=rw.getEvent();
 				if(currentEvent!=-1) {
