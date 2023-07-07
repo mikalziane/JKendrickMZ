@@ -100,11 +100,17 @@ It's composed of attributes, themselves composed of the first concern name, then
 
 Here is an example with 2 concerns : a first one with the name "status" and the compartments "S","I","R", and a second one with the name "species" and the compartments "human","bird".
 The names used in the scenario would be :
+
 	status:S_species:human_
+	
 	status:S_species:bird_
+	
 	status:I_species:human_
+	
 	status:I_species:bird_
+	
 	status:R_species:human_
+	
 	status:R_species:bird_
 	
 The attributes of a concern name are stored in a map, so the order of attributes doesn't matter. 
@@ -124,13 +130,21 @@ For each time step, this solver generate a random number of occurrences of each 
 
 ### Simulation procedure
 Here are the steps needed for a simulation :
+
 	- Define concerns, with a concern name, compartments and parameters that would be useful to get transition rates.
+	
 	- For each concern, define every transition possible between compartments, with origin compartment, destination compartment and rate.
+	
 	- Define a scenario with the list of your concerns.
+	
 	- In this scenario, define value for every parameter (including population of every compartment).
+	
 	- Define a model with the scenario, the size of a time step, the time of the last step and the number of iterations if you want a stochastic simulation.
+	
 	- Define a solver with this model.
+	
 	- Define a simulation with the solver, a visualization tool and a title.
+	
 	- Run the simulation.
 
 
