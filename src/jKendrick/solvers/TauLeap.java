@@ -4,8 +4,8 @@ package jKendrick.solvers;
 import java.util.List;
 import java.util.Map;
 
-import jKendrick.simulation.ISolver;
-import jKendrick.simulation.Model;
+import jKendrick.core.ISolver;
+import jKendrick.core.Model;
 import jKendrick.simulation.Scenario;
 import jKendrick.tools.PoissonGenerator;
 

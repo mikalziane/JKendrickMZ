@@ -1,6 +1,6 @@
-package jKendrick.simulation;
+package jKendrick.core;
 
-
+import jKendrick.simulation.Scenario;
 
 public class Model {
 	private Scenario s;

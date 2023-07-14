@@ -9,6 +9,9 @@ import org.apache.commons.math3.exception.DimensionMismatchException;
 import org.apache.commons.math3.exception.MaxCountExceededException;
 import org.apache.commons.math3.ode.FirstOrderDifferentialEquations;
 
+import jKendrick.core.Concern;
+import jKendrick.core.TransitionRateMatrix;
+
 
 
 public class Scenario implements FirstOrderDifferentialEquations{

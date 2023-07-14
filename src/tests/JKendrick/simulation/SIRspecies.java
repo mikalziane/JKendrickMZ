@@ -3,14 +3,14 @@ package tests.JKendrick.simulation;
 import java.util.ArrayList;
 import java.util.List;
 
-import jKendrick.Visualization;
+import jKendrick.IHM.Visualization;
+import jKendrick.core.Concern;
+import jKendrick.core.IRates;
+import jKendrick.core.Model;
 import jKendrick.rates.DivRate;
 import jKendrick.rates.MulRate;
 import jKendrick.rates.Rate;
 import jKendrick.rates.SumRate;
-import jKendrick.simulation.Concern;
-import jKendrick.simulation.IRates;
-import jKendrick.simulation.Model;
 import jKendrick.simulation.Scenario;
 import jKendrick.simulation.Simulation;
 import jKendrick.solvers.Gillespie;

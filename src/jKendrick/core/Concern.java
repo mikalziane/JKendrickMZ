@@ -1,4 +1,4 @@
-package jKendrick.simulation;
+package jKendrick.core;
 
 
 

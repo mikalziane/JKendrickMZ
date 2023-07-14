@@ -1,4 +1,4 @@
-package jKendrick.solvers;
+package jKendrick.core;
 
 
 

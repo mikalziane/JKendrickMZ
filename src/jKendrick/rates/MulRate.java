@@ -1,7 +1,7 @@
 package jKendrick.rates;
 
 
-import jKendrick.simulation.IRates;
+import jKendrick.core.IRates;
 import jKendrick.simulation.Scenario;
 
 public class MulRate implements IRates{

@@ -1,4 +1,4 @@
-package jKendrick;
+package jKendrick.IHM;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,7 +17,7 @@ import org.knowm.xchart.style.Styler.LegendPosition;
 
 import org.knowm.xchart.style.markers.SeriesMarkers;
 
-import jKendrick.simulation.ISolver;
+import jKendrick.core.ISolver;
 
 public class Visualization {
 	

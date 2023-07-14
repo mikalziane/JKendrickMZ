@@ -4,8 +4,8 @@ import org.apache.commons.math3.ode.FirstOrderDifferentialEquations;
 import org.apache.commons.math3.ode.FirstOrderIntegrator;
 import org.apache.commons.math3.ode.nonstiff.ClassicalRungeKuttaIntegrator;
 
-import jKendrick.simulation.ISolver;
-import jKendrick.simulation.Model;
+import jKendrick.core.ISolver;
+import jKendrick.core.Model;
 import jKendrick.simulation.Scenario;
 
 public class RK4Solver implements ISolver{

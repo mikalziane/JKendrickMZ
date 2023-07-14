@@ -1,5 +1,8 @@
-package jKendrick;
+package jKendrick.IHM;
 
+import jKendrick.core.Concern;
+import jKendrick.core.IRates;
+import jKendrick.core.Model;
 
 import jKendrick.rates.DivRate;
 import jKendrick.rates.MulRate;
@@ -9,16 +12,12 @@ import jKendrick.rates.SumRate;
 import java.util.ArrayList;
 import java.util.List;
 
-import jKendrick.simulation.Concern;
-import jKendrick.simulation.IRates;
-import jKendrick.simulation.Model;
 import jKendrick.simulation.Scenario;
 import jKendrick.simulation.Simulation;
 import jKendrick.solvers.Gillespie;
 import jKendrick.solvers.RK4Solver;
 import jKendrick.solvers.TauLeap;
 public class MainSIR {
-
 	public static void main(String[] args) {
 		Concern SIR=new Concern("status","S I R","beta gamma");
 		IRates beta=new Rate("beta");
