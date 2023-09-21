@@ -83,6 +83,13 @@ R = 0
 
 STATUS : not yet enforced ^^
 
+
+## Simulating models
+
+We use RK4 for deterministic simulations and Gillespie's Direct Method and Tau leap dor stochastic ones.
+
+For stochastic models, following the Keeling book Section 4.1.1 we assume that "in small time period the number of events that occur is Poisson distributed". 
+=======
 ### Transition rates matrix
 The transition rates matrix is composed of the functional transitions rates between compartments.
 A transition is set by giving the compartment from which the transition starts, the compartment toward which it ends, and the rate at which the transition occurs.
@@ -148,6 +155,7 @@ Here are the steps needed for a simulation :
 	- Run the simulation.
 
 
+
 ## Examples from Keeling and Rohani
 
 ### SIR
@@ -162,6 +170,8 @@ https://github.com/KendrickOrg/kendrick/blob/ba11051d2c8976bb27a12da0e3e51650cee
 ![SIR Model with Java code](https://github.com/YvanGuifo/PhdThesisYvanGuifo_2019-2022/blob/master/notes-lectures/Images%20de%20document%20de%20note%20de%20lecture/Images/SIRModelJavaCode.png)
 
 ### SIS
+
+We use mass action for this model and simulate it using RK4 and Gillespie's Direct Method.
 
 #### SEIR
 
