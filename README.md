@@ -29,7 +29,7 @@ The SIR_ODE.getDimension method return the size of the array holding the cardina
 So for this simple SIR example it is 3 because the compartments are  S, I and R with as many differential equations for dS/dt dI/dt and dR/dt.
 
 #### XChart
-[>https://github.com/knowm/XChart](https://github.com/knowm/XChart#getting-started)
+> [https://github.com/knowm/XChart](https://github.com/knowm/XChart#getting-started)
 
 It is not mandatory to create a Maven project to use XChart
 
