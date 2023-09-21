@@ -1,8 +1,8 @@
-package jKendrick;
+package jKendrick.models.old;
 
 import java.io.IOException;
 
-import jKendrick.models.old.OldSIRModel;
+import jKendrick.IHM.Visualization;
 import jKendrick.solvers.RK4Solver;
 
 

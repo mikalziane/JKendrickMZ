@@ -1,4 +1,4 @@
-package tests.JKendrick.models;
+package tests.JKendrick.models.old;
 
 import static org.junit.Assert.*;
 
@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import jKendrick.models.SEIR;
+import jKendrick.models.old.SEIR;
 
 public class SEIRModelTest {
 

@@ -1,47 +1,57 @@
 package jKendrick.tools;
 
+
 public class RouletteWheel {
-	private double[] rates;
-	private double[] sums;
-	private final int nbRates;
-	private final double epsilon;
+	private double[] rates;   // rates (proportions to enforce) of events
+				// the total sum of rates must equals 1
+	private double[] sums;    // cumulative sums of rates 
+				// sum[i] = rates[0] + ... rates[i]
+	private final double epsilon;  // precision for comparisons
 	
 	public RouletteWheel(double[] rates, double epsilon) {
 		this.epsilon = epsilon;
-		this.nbRates = rates.length;
-		assert nbRates >0;
+		assert rates.length >0;
 		this.rates = rates.clone();
-		this.sums = new double[nbRates+1];
-		sums[0] = 0.;
-		for (int i =1; i<nbRates+1; ++i)
-			sums[i] = sums[i-1] + rates[i-1];
+		this.sums = new double[rates.length];
+		sums[0] = rates[0];
+		for (int i =1; i<rates.length; ++i)
+			sums[i] = sums[i-1] + rates[i];
+		
+		assert (equals(1., sums[rates.length -1]) || equals(-1.,sums[rates.length -1]));
+		// to be sure a provided rand is never bigger
+		// than the last sum:
+		sums[rates.length -1] += 2* epsilon; 
 	}
-	public double getRate(int i) {
+
+	public double rate(int i) {
+		assert i >=0 && i < rates.length;
 		return rates[i];
 	}
 	
-	// returns sum of all rates[k] for k <i
+	// sum of all rates[k] for k <= i
 	public double sum(int i) {
-		assert i >=0 && i < nbRates+1;
+		assert i >=0 && i < rates.length;
 		return sums[i];
 	}
+	
 	public boolean equals (double x1, double x2) {
 		return Math.abs(x1 - x2) < epsilon;
 	}
 	public boolean lesser(double x1, double x2) {
-		return x1 < x2 || (x1 - epsilon) <x2;
+		return x1 < x2 || (x1 - epsilon) <x2  || (x1 + epsilon) <x2;
 	}
 	
+	// returns the first i for which  sum(i) >= rand
 	public int getEvent(double rand) {
-		// returns the first i such that sum(i) >= rand
-		// where sum(i) is the sum of rates[k] for all k < i
-		// 1 <= i && i <= taux.length
-		// as soon as sum(i) >= rand, i-1 is returned
 		assert rand >=0.0 && rand <= 1.0;
+		if(rate(0)==-1.) {
+			return -1;
+		}
 		int i;
-		for (i = 1; i < rates.length && lesser(sum(i), rand) ; ++i)
+		for (i = 0; i < rates.length && lesser(sum(i), rand) ; ++i)
 			;
-		return i-1;
+		assert i < rates.length;
+		return i;
 	}
 	
 	public int getEvent() {

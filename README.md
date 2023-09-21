@@ -83,11 +83,78 @@ R = 0
 
 STATUS : not yet enforced ^^
 
+
 ## Simulating models
 
 We use RK4 for deterministic simulations and Gillespie's Direct Method and Tau leap dor stochastic ones.
 
 For stochastic models, following the Keeling book Section 4.1.1 we assume that "in small time period the number of events that occur is Poisson distributed". 
+=======
+### Transition rates matrix
+The transition rates matrix is composed of the functional transitions rates between compartments.
+A transition is set by giving the compartment from which the transition starts, the compartment toward which it ends, and the rate at which the transition occurs.
+Each concern has it’s own transition rates matrix. 
+
+When concerns are merged into a scenario, a new transition rates matrix is created using the tensor sum of the concern’s matrices. (Not yet implemented)
+
+Each not null transition of the matrix is considered as a possible event for stochastic simulations.
+For deterministic simulations, the equations are generated using the transition rates matrix.
+
+### Naming compartments
+Each concern has a name and compartments names.
+When concerns are merged in a scenario, new compartment names are created this way : concern1Name:compartemntName_concern2Name:compartmentName_(...)concernNName:compartmentName_
+It's composed of attributes, themselves composed of the first concern name, then ":", then the first compartment name of the first concern, and then "_". There are as many attributes by names than there are concerns by scenario.
+
+Here is an example with 2 concerns : a first one with the name "status" and the compartments "S","I","R", and a second one with the name "species" and the compartments "human","bird".
+The names used in the scenario would be :
+
+	status:S_species:human_
+	
+	status:S_species:bird_
+	
+	status:I_species:human_
+	
+	status:I_species:bird_
+	
+	status:R_species:human_
+	
+	status:R_species:bird_
+	
+The attributes of a concern name are stored in a map, so the order of attributes doesn't matter. 
+status:S_species:human_ is equivalent to species:human_status:S_
+
+### Solvers
+#### Deterministics solvers
+##### RK4 solver
+This solver uses ordinary differential equations generated via the scenario transition rate matrix. It uses the Runge-Katta method.
+
+#### Stochastics solvers
+These solvers run multiple times and then return the median path.
+##### Gillespie solver
+This solver has a randomized time step, depending on the rate at which any event may occur. Then, an event is randomly selected in the list of possible events, using a roulette wheel taking in consideration the rate of each event.
+##### Tau-leap solver
+For each time step, this solver generate a random number of occurrences of each event, following a Poisson distribution around (the step size*the rate of the event).
+
+### Simulation procedure
+Here are the steps needed for a simulation :
+
+	- Define concerns, with a concern name, compartments and parameters that would be useful to get transition rates.
+	
+	- For each concern, define every transition possible between compartments, with origin compartment, destination compartment and rate.
+	
+	- Define a scenario with the list of your concerns.
+	
+	- In this scenario, define value for every parameter (including population of every compartment).
+	
+	- Define a model with the scenario, the size of a time step, the time of the last step and the number of iterations if you want a stochastic simulation.
+	
+	- Define a solver with this model.
+	
+	- Define a simulation with the solver, a visualization tool and a title.
+	
+	- Run the simulation.
+
+
 
 ## Examples from Keeling and Rohani
 

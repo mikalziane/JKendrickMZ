@@ -1,10 +1,10 @@
-package tests.JKendrick.models;
+package tests.JKendrick.models.old;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import jKendrick.models.SISModel;
+import jKendrick.models.old.SISModel;
 
 class SISModelTest {
 	
