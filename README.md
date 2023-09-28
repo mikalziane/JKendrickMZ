@@ -29,7 +29,7 @@ The SIR_ODE.getDimension method return the size of the array holding the cardina
 So for this simple SIR example it is 3 because the compartments are  S, I and R with as many differential equations for dS/dt dI/dt and dR/dt.
 
 #### XChart
->[https://github.com/knowm/XChart](https://github.com/knowm/XChart)
+> [https://github.com/knowm/XChart](https://github.com/knowm/XChart#getting-started)
 
 It is not mandatory to create a Maven project to use XChart
 
@@ -89,7 +89,7 @@ STATUS : not yet enforced ^^
 We use RK4 for deterministic simulations and Gillespie's Direct Method and Tau leap dor stochastic ones.
 
 For stochastic models, following the Keeling book Section 4.1.1 we assume that "in small time period the number of events that occur is Poisson distributed". 
-=======
+
 ### Transition rates matrix
 The transition rates matrix is composed of the functional transitions rates between compartments.
 A transition is set by giving the compartment from which the transition starts, the compartment toward which it ends, and the rate at which the transition occurs.
