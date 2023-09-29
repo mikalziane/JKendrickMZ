@@ -26,6 +26,7 @@ public class RK4Solver implements ISolver{
 	
 	@Deprecated
 	public RK4Solver(double step) {
+		assert false : "deprecated constructor for RK4Solver";
 		this.step=step;
 	}
 	

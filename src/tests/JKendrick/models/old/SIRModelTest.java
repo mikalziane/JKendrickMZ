@@ -19,7 +19,7 @@ class SIRModelTest {
 		double beta = 1.4247; // transmission rate
 		double gamma = 0.14286; // recovery rate
 		
-		OldSIRModel ode = new OldSIRModel(beta, gamma);
+		Scenario ode = new Scenario(beta, gamma);
 
 		assertEquals(3, ode.getDimension());
 		

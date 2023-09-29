@@ -18,7 +18,7 @@ class SISModelTest {
 	@Test
 	void testDimension() {
 		
-		SISModel model = new SISModel(beta, gamma);
+		Scenario model = new Scenario(beta, gamma);
 		assertEquals(2, model.getDimension());;
 	}
 	
@@ -27,7 +27,7 @@ class SISModelTest {
 	void testParametersOfModels() {
 		
 		
-		SISModel model = new SISModel(beta, gamma);
+		Scenario model = new Scenario(beta, gamma);
 		double[] sisDot = new double[compartments.length];
 		model.computeDerivatives(0, compartments, sisDot);
 		
