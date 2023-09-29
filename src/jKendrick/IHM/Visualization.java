@@ -22,7 +22,7 @@ import jKendrick.core.ISolver;
 public class Visualization {
 	
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	//@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void xchartExample(double[][] results, double step, double last, String[] seriesNames, String title, String xAxis, String yAxis)
 															throws IOException {
 		double[] xData = new double[results[0].length];

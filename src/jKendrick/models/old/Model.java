@@ -2,7 +2,7 @@ package jKendrick.models.old;
 
 import org.apache.commons.math3.ode.FirstOrderDifferentialEquations;
 
-public abstract class Model implements FirstOrderDifferentialEquations{
+@Deprecated public abstract class Model implements FirstOrderDifferentialEquations{
 	protected String[] compartmentNames;
 	protected String[] parameterNames;
 	protected double[] parameters;

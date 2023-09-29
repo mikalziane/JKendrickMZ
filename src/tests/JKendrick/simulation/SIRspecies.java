@@ -3,22 +3,16 @@ package tests.JKendrick.simulation;
 import java.util.ArrayList;
 import java.util.List;
 
-import jKendrick.IHM.Visualization;
 import jKendrick.core.Concern;
 import jKendrick.core.IRates;
-import jKendrick.core.Model;
 import jKendrick.rates.DivRate;
 import jKendrick.rates.MulRate;
 import jKendrick.rates.Rate;
 import jKendrick.rates.SumRate;
 import jKendrick.simulation.Scenario;
-import jKendrick.simulation.Simulation;
-import jKendrick.solvers.Gillespie;
-import jKendrick.solvers.RK4Solver;
-import jKendrick.solvers.TauLeap;
+
 
 public class SIRspecies {
-
 	public static void main(String[] args) {
 		Concern SIR=new Concern("status","S I R","beta gamma");
 		IRates beta=new Rate("beta");
@@ -49,17 +43,10 @@ public class SIRspecies {
 		SIRscenario.setPopulation("status:S_species:bird_", 999.);
 		SIRscenario.setPopulation("status:I_species:bird_", 1.);
 		SIRscenario.setPopulation("status:R_species:bird_", 0.);
-		
-		
+			
 		SIRscenario.setParameter("beta", 1.4247);
 		SIRscenario.setParameter("gamma", 0.14286);
 		
 		SIRscenario.printStringNames();
-		
-		
-
-	
-
 	}
-
 }

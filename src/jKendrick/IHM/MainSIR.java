@@ -64,9 +64,6 @@ public class MainSIR {
 		tauLeapSim.simulate();
 		rk4Sim.simulate();
 		gillespieSim.simulate();
-		
-		
-
 	}
 
 }

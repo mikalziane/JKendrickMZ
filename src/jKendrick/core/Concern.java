@@ -1,14 +1,11 @@
 package jKendrick.core;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
-
-
+// ebauche de classe à compléter
 public class Concern {
 	private ArrayList<String> compartmentNames;
 	private Map<String, Double> parameters;
