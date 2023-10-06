@@ -12,8 +12,6 @@ public class DivRate implements IRates{
 		this.r2=r2;
 	}
 
-	
-
 	@Override
 	public double getRate(Scenario s) {
 		assert r2.getRate(s)!=0.;

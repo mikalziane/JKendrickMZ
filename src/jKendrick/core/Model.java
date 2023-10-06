@@ -37,10 +37,4 @@ public class Model {
 	public int getNbCycles() {
 		return nbCycles;
 	}
-	
-	
-	
-	
-	
-
 }

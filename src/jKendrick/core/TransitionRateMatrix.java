@@ -66,10 +66,6 @@ public class TransitionRateMatrix {
 		}
 		
 	}
-	
-	
-	
-	
 	private static class XY{
 		private Map<String,String> x;
 		private Map<String,String> y;

@@ -13,7 +13,6 @@ import jKendrick.core.Concern;
 import jKendrick.core.TransitionRateMatrix;
 
 
-
 public class Scenario implements FirstOrderDifferentialEquations{
 	private List<Concern> concerns;
 	private Map<String,Double> parameters;
