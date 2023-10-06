@@ -1,4 +1,4 @@
-package tests.JKendrick.tools;
+package jKendrick.tests.tools;
 
 import org.junit.jupiter.api.Test;
 

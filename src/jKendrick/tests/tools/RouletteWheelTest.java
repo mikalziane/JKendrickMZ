@@ -1,4 +1,4 @@
-package tests.JKendrick.tools;
+package jKendrick.tests.tools;
 
 import static org.junit.jupiter.api.Assertions.*;
 

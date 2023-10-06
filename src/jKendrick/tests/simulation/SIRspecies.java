@@ -1,4 +1,4 @@
-package tests.JKendrick.simulation;
+package jKendrick.tests.simulation;
 
 import java.util.ArrayList;
 import java.util.List;
