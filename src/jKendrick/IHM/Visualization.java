@@ -36,7 +36,8 @@ public class Visualization {
 		}
 				
 	// Create Chart
-	final XYChart chart = new XYChartBuilder().width(500).height(400).theme(ChartTheme.XChart).title(title).xAxisTitle(xAxis).yAxisTitle(yAxis).build();
+	final XYChart chart = new XYChartBuilder().width(500).height(400)
+			.theme(ChartTheme.XChart).title(title).xAxisTitle(xAxis).yAxisTitle(yAxis).build();
 
 	// Customize Chart
 		chart.getStyler().setLegendPosition(LegendPosition.InsideNE);
@@ -49,24 +50,22 @@ public class Visualization {
 	// Schedule a job for the event-dispatching thread:
 	// creating and showing this application's GUI.
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				// Create and set up the window.
+				JFrame frame = new JFrame("Deterministic model");
+				frame.setLayout(new BorderLayout());
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		@Override
-		public void run() {
+				// chart
+				JPanel chartPanel = new XChartPanel<XYChart>(chart);
+				frame.add(chartPanel, BorderLayout.CENTER);
 
-		// Create and set up the window.
-		JFrame frame = new JFrame("Deterministic model");
-		frame.setLayout(new BorderLayout());
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		// chart
-	    JPanel chartPanel = new XChartPanel<XYChart>(chart);
-		frame.add(chartPanel, BorderLayout.CENTER);
-
-		// Display the window.
-		frame.pack();
-		frame.setVisible(true);
-				 }
-			});
+				// Display the window.
+				frame.pack();
+				frame.setVisible(true);
+			}
+		});
 
 	}
 	
@@ -185,10 +184,12 @@ public class Visualization {
 		
 	}
 	
-	public void stochasticChart(double step,double[][][] results, double[][] average, String[] seriesNames,String title, String xAxis, String yAxis)throws IOException  {
+	public void stochasticChart(double step,double[][][] results, double[][] average,
+			String[] seriesNames,String title, String xAxis, String yAxis)throws IOException  {
 		double[] xData=new double[results[0].length];
 		double[][][] yData=new double[results.length][results[0][0].length][results[0].length];
-		final XYChart chart = new XYChartBuilder().width(500).height(400).title(title).xAxisTitle(xAxis).yAxisTitle(yAxis).build();
+		final XYChart chart = new XYChartBuilder().width(500).height(400)
+				.title(title).xAxisTitle(xAxis).yAxisTitle(yAxis).build();
 		chart.getStyler().setLegendPosition(LegendPosition.OutsideE);
 		chart.getStyler().setDefaultSeriesRenderStyle(XYSeriesRenderStyle.Line);
 		chart.getStyler().setMarkerSize(1);
@@ -257,7 +258,8 @@ public class Visualization {
 		double[][][] results=solver.getResult();
 		int nbSteps=solver.getNbSteps();
 		String[] labels=solver.getLabels();
-		final XYChart chart = new XYChartBuilder().width(500).height(400).title(title).xAxisTitle(xAxis).yAxisTitle(yAxis).build();
+		final XYChart chart = new XYChartBuilder().width(500).height(400)
+				.title(title).xAxisTitle(xAxis).yAxisTitle(yAxis).build();
 		//style chart
 		
 		chart.getStyler().setLegendPosition(LegendPosition.OutsideE);

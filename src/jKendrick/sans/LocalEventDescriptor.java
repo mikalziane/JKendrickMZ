@@ -1,16 +1,16 @@
 package jKendrick.sans;
 
+import java.util.function.Function;
+
 public class LocalEventDescriptor {
     private String fromState;
     private String toState;
-    private String rateName;
-    private double rate;
+    private Function<int[], Double> rateFunction;
 
-    public LocalEventDescriptor(String fromState, String toState, String rateName, double rate) {
+    public LocalEventDescriptor(String fromState, String toState, Function<int[], Double> rateFunction) {
         this.fromState = fromState;
         this.toState = toState;
-        this.rateName = rateName;
-        this.rate = rate;
+        this.rateFunction = rateFunction;
     }
 
     public String getFromState() {
@@ -21,11 +21,7 @@ public class LocalEventDescriptor {
         return toState;
     }
 
-    public String getRateName() {
-        return rateName;
-    }
-
-    public double getRate() {
-        return rate;
+    public double getRate(int[] currentStateCounts) {
+        return rateFunction.apply(currentStateCounts);
     }
 }

@@ -57,12 +57,12 @@ public class MainSIR {
 		Visualization v=new Visualization();
 		String title="SIR";
 		
-		Simulation tauLeapSim=new Simulation(tl, v, title);
-		Simulation rk4Sim=new Simulation(rksolver, v, title);
-		Simulation gillespieSim=new Simulation(g, v, title);
+		Simulation tauLeapSim=new Simulation(tl, v, title + " (Tau Leap");
+		Simulation rk4Sim=new Simulation(rksolver, v, title + " (RK4)");
+		Simulation gillespieSim=new Simulation(g, v, title + " (Gillespie)");
 		
-		tauLeapSim.simulate();
 		rk4Sim.simulate();
+		tauLeapSim.simulate();
 		gillespieSim.simulate();
 	}
 

@@ -1,34 +1,42 @@
 package jKendrick.sans;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import jKendrick.IHM.Visualization;
+
+
 public class Main {
-    public static void main(String[] args) {
-        // SIR Automaton
-        List<String> sirStates = Arrays.asList("S", "I", "R");
-        List<LocalEventDescriptor> sirEvents = Arrays.asList(
-            new LocalEventDescriptor("S", "I", "beta", 0.3),
-            new LocalEventDescriptor("I", "R", "gamma", 0.1)
+    public static void main(String[] args) throws IOException {
+        // Initial population
+        int totalPopulation = 1000;
+        int initialInfected = 1;
+        int initialSusceptible = 999;
+        int initialRecovered = 0;
+
+        // Initial state counts
+        int[] initialStateCounts = {initialSusceptible, initialInfected, initialRecovered};
+
+        // Define states and transitions
+        List<String> states = Arrays.asList("S", "I", "R");
+        List<LocalEventDescriptor> events = Arrays.asList(
+            new LocalEventDescriptor("S", "I", stateCounts -> 1.4247 * stateCounts[0] * stateCounts[1] / totalPopulation),
+            new LocalEventDescriptor("I", "R", stateCounts -> 0.14286 * stateCounts[1])
         );
-        StochasticAutomaton sirAutomaton = new StochasticAutomaton(sirStates, sirEvents, "I");
 
-        // North-South Automaton
-        List<String> nsStates = Arrays.asList("North", "South");
-        List<LocalEventDescriptor> nsEvents = Arrays.asList(
-            new LocalEventDescriptor("North", "South", "move_south", 0.5),
-            new LocalEventDescriptor("South", "North", "move_north", 0.5)
-        );
-        StochasticAutomaton nsAutomaton = new StochasticAutomaton(nsStates, nsEvents, "North");
+        // Create the stochastic automaton
+        StochasticAutomaton automaton = new StochasticAutomaton(states, events, initialStateCounts);
 
-        // Tensor Sum
-        List<StochasticAutomaton> automata = Arrays.asList(sirAutomaton, nsAutomaton);
-        StochasticAutomaton combinedAutomaton = StochasticAutomaton.tensorSum(automata);
-
-        // Print the resulting SAN states
-        System.out.println("Combined SAN States:");
-        for (String state : combinedAutomaton.getStates()) {
-            System.out.println(state);
-        }
+        // Create the Gillespie solver and set it up with the automaton
+        Gillespie solver = new Gillespie(automaton, 100, 40);
+        solver.solve();
+        
+        Visualization v = new Visualization();
+        
+        solver.solve();
+        v.getChart(solver, "SIR (Gillespie)", "time", "population");
     }
+
+
 }
