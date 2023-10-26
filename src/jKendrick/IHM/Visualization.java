@@ -23,7 +23,8 @@ public class Visualization {
 	
 	
 	//@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void xchartExample(double[][] results, double step, double last, String[] seriesNames, String title, String xAxis, String yAxis)
+	public static void xchartExample(double[][] results, double step, double last, 
+			String[] seriesNames, String title, String xAxis, String yAxis)
 															throws IOException {
 		double[] xData = new double[results[0].length];
 		double[][] yData = new double[results.length][results[0].length];
