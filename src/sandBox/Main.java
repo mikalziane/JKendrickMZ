@@ -16,7 +16,7 @@ public class Main {
 			System.out.println(results[0][i] + " "+ results[1][i] + " " +results[2][i]);
 		}
 		String[] names = {"S", "I", "R"};
-		Visualization.xchartExample(results, 1., 99., names, "Essai", "Time", "Pop");
+		Visualization.xchartExample(results, 1., 99., names, "Essai", "Time", "Population");
 
 	}
 
