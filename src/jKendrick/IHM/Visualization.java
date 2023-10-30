@@ -76,34 +76,34 @@ public class Visualization {
 	}
 
 	
-	public void getChart(ISolver solver,String title, String xAxis, String yAxis)
+	public void getChart(ISolver solver,String title, String xAxisTitle, String yAxisTitle)
 			throws IOException {
 		double[][][] results=solver.getResult();
 		int nbSteps=solver.getNbSteps();
 		String[] labels=solver.getLabels();
 		final XYChart chart = new XYChartBuilder().width(500).height(400)
-				.title(title).xAxisTitle(xAxis).yAxisTitle(yAxis).build();
+				.title(title).xAxisTitle(xAxisTitle).yAxisTitle(yAxisTitle).build();
 		
 		//style chart
 		chart.getStyler().setLegendPosition(LegendPosition.OutsideE);
-		//chart.getStyler().setDefaultSeriesRenderStyle(XYSeriesRenderStyle.Line);
-		//chart.getStyler().setMarkerSize(1);
+		chart.getStyler().setDefaultSeriesRenderStyle(XYSeriesRenderStyle.Line);
+		chart.getStyler().setMarkerSize(1);
 		
-		chart.getStyler().setDefaultSeriesRenderStyle(XYSeriesRenderStyle.Scatter);
-		chart.getStyler().setMarkerSize(5);
+		//chart.getStyler().setDefaultSeriesRenderStyle(XYSeriesRenderStyle.Scatter);
+		//chart.getStyler().setMarkerSize(3);
 		
 		if(results.length>1) {
-			double[][] xData=new double[results.length][nbSteps];
-			double[][][] yData=new double[results.length][labels.length][nbSteps];
+			double[][] xDataSet=new double[results.length][nbSteps];
+			double[][][] yDataSet=new double[results.length][labels.length][nbSteps];
 			for(int i=0;i<results.length;++i) {	
 				for(int j=0;j<labels.length;++j) {	
 					for(int k=0;k<results[0].length;++k) {
-						xData[i]=solver.getTimes(i);
-						yData[i][j][k]=results[i][k][j];
+						xDataSet[i]=solver.getTimes(i);
+						yDataSet[i][j][k]=results[i][k][j];
 					}
 					String serieName=new String(" "+labels[j]+"-"+i);
 					
-					XYSeries stochasticSeries =chart.addSeries(serieName,xData[i], yData[i][j]);
+					XYSeries stochasticSeries =chart.addSeries(serieName,xDataSet[i], yDataSet[i][j]);
 					stochasticSeries.setLineColor(new Color(0, 0, 0, 10));
 					stochasticSeries.setMarkerColor(new Color(0, 0, 0, 10));
 					stochasticSeries.setMarker(SeriesMarkers.CIRCLE);
@@ -113,14 +113,14 @@ public class Visualization {
 		}
 		double[][] medianPath=solver.getMedianPath();
 		
-		double[] xDataAverage=new double[medianPath.length];
-		double[][] yDataAverage=new double[labels.length][medianPath.length];
-		for(int i=0;i<labels.length;++i) {
+		double[] xMedianPath=new double[medianPath.length];
+		double[][] yMedianPath=new double[labels.length][medianPath.length];
+		for(int iLabel=0;iLabel<labels.length;++iLabel) {
 			for(int j=0;j<medianPath.length;++j) {
-				xDataAverage=solver.getMedianTimes();
-				yDataAverage[i][j]=medianPath[j][i];
+				xMedianPath=solver.getMedianTimes();
+				yMedianPath[iLabel][j]=medianPath[j][iLabel];
 			}
-			chart.addSeries(labels[i], xDataAverage, yDataAverage[i]);
+			chart.addSeries(labels[iLabel], xMedianPath, yMedianPath[iLabel]);
 			
 		}
 		
