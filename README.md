@@ -162,7 +162,7 @@ More precisely, the jKendrick.IHM package currently holds 2 kinds of classes : M
 Both methods rely on XYChart.
 
 Visialization displays the results of a simulation using this method of the ISolver interface
-double[][][] getResult()
+double\[]\[][] getResult()
 in which the leftmost dimension is the **number of cycles**, the middle one is the **number of steps** and the rightmost one is the **number of compartments**.
 
 ## Examples from Keeling and Rohani
