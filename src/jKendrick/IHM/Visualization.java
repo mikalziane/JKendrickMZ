@@ -89,8 +89,6 @@ public class Visualization {
 		chart.getStyler().setDefaultSeriesRenderStyle(XYSeriesRenderStyle.Line);
 		chart.getStyler().setMarkerSize(1);
 		
-		//chart.getStyler().setDefaultSeriesRenderStyle(XYSeriesRenderStyle.Scatter);
-		//chart.getStyler().setMarkerSize(3);
 		
 		if(results.length>1) {
 			double[][] xDataSet=new double[results.length][nbSteps];
