@@ -43,7 +43,7 @@ Then, follow this step
 
 ## Writing models
 ### Mass-action vs standard incidence
-Both kinds of incidence are only equivalent if N is fixed. Their assumptions are different which matter when the population gets large.
+Both kinds of incidence are only equivalent if N is fixed. Their assumptions are different which matters when the population gets large.
 
 #### Mass-Action incidence 
 Mass action  assumes transmission is unbounded when the number of infected people grows.
